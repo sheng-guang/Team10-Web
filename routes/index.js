@@ -10,4 +10,8 @@ router.get('/detail', function(req, res, next) {
   res.render('detail', { title: 'Secret Task' });
 });
 
+router.get('/room', function(req, res, next) {
+  res.render('room', { title: 'Join your room' });
+});
+
 module.exports = router;
