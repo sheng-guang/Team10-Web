@@ -1,6 +1,7 @@
 let name = null;
 let roomNo = null;
-let socket=null;
+let socket=io();
+
 
 
 /**
@@ -77,3 +78,52 @@ function hideLoginInterface(room, userId) {
     document.getElementById('in_room').innerHTML= ' '+room;
 }
 
+/** some functions are used-acp21zo*/
+
+/** send ajax query using Jquery
+ * @param url send url
+ * @param data send data
+ */
+
+function sendAjaxQuery(url,data) {
+    $.ajax({
+        url: url,
+        data: JSON.stringify(data),
+        contentType: 'application/json',
+        dataType: 'json',
+        type: 'POST',
+        success: function (dataR) {
+            var re = dataR;
+        },
+        error: function (error) {
+            alert('Error' + error.message);
+        }
+
+    });
+}
+/**
+ * called when user press the submit button
+ * @param submission event
+ */
+
+function  onSubmit(url){
+    let formArray= $("#upForm").serializeArray();
+    formArray.push({"name": "BaseCode", "value":base64Info});
+    console.log(formArray);
+
+    let data={};
+    for (let index in formArray){
+        data[formArray[index].name]= formArray[index].value;
+    }
+
+    console.log(data);
+    sendAjaxQuery(url,data);
+    event.preventDefault();
+}
+
+
+function gohome()
+{
+    window.location.href=".."
+}
+/** acp21zo */
