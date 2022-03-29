@@ -20,9 +20,9 @@ exports.init = function(io) {
       socket.on('disconnect', function () {
         console.log('somebody disconnect');
       });
-      socket.on('draw', function (room, userId, width, height) {
-        io.sockets.to(room).emit('draw', room, userId, width, height)
-      });
+      socket.on('draw', function (room, userId, width, height,preX,preY,curX,curY,color,thickness) {
+        io.sockets.to(room).emit('draw', room, userId, width, height,preX,preY,curX,curY,color,thickness)
+      });/**preX,preY,curX,curY are the status of the annotation in previous and current */
       socket.on('knowledge graph', function (room, name, id, desc, url) {
         socket.broadcast.to(room).emit('knowledgegraph', room, name, id, desc, url);
       });
