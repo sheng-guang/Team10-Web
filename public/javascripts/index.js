@@ -30,7 +30,7 @@ function initSocket(){
     // called when someone joins the room. If it is someone else it notifies the joining of the room
     socket.on('joined', function (room, userId){
 
-        if (userId == name){
+        if (userId === name){
             //it enters the chat
             hideLoginInterface(room, userId);
         } else {
@@ -41,7 +41,7 @@ function initSocket(){
     //called when a message is received
     socket.on('chat', function (room, userId, chatText){
         let who = userId
-        if(userId == name) who = 'Me ';
+        if(userId === name) who = 'Me ';
         writeOnHistory('<b>' + who + ':</b> ' + chatText);
     });
 
@@ -78,6 +78,8 @@ function generateRoom() {
  */
 function sendChatText() {
     let chatText = document.getElementById('chat_input').value;
+    socket.emit('chat', roomNo, name, chatText);
+
     // @todo send the chat message
 }
 
@@ -169,6 +171,6 @@ function  onSubmit(url){
 
 function gohome()
 {
-    window.location.href=".."
+    window.location.href="/"
 }
 /** acp21zo */

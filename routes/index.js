@@ -26,19 +26,4 @@ router.get('/new', function(req, res, next) {
 
 
 
-router.get('/room', function(req, res, next) {
-
-
-  chatModel.find({}, function (err,doc){
-    if(err){
-      console.log(err);
-      return;
-    }
-
-    res.render('room', {
-      title: 'Image Browsing',
-      testData: doc
-    });
-  });
-});
 module.exports = router;
