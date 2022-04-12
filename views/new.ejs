@@ -10,7 +10,8 @@
     <script src="/javascripts/story.js"></script>
     <script>
         function send() {
-            addNewStory(document.getElementById("title1"),document.getElementById("picBase64"),document.getElementById("description1"),document.getElementById("author1"));
+            addNewStory(document.getElementById("title1").value,document.getElementById("picBase64").value,document.getElementById("description1").value,document.getElementById("author1").value);
+            console.log(getAllStory());
         }
     </script>
 </head>
@@ -18,7 +19,7 @@
 <div id="initial_form" style="display: block">
     <h1>Create a new story</h1>
 </div>
-<form method="post" id="upForm" onsubmit="onSubmit('/')">
+
     <p>
         <input type="file" name="picBase64" id="picBase64" onchange="imgChange(event)" accept=".gif,.jpg,.jpeg,.png">
     </p>
@@ -38,5 +39,5 @@
     <p>
         <input type="submit" onclick="send()" value="Submit" id="upload3">
     </p>
-</form>
+
 </body>
