@@ -16,7 +16,8 @@ router.get('/detail', function(req, res, next) {
 });
 
 router.get('/room', function(req, res, next) {
-  res.render('room', { title: 'Join your room' });
+  let imgID=req.query.img;
+  res.render('room', { title: 'Join your room',img:imgID });
 });
 
 router.get('/new', function(req, res, next) {
