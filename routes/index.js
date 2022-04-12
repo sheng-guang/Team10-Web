@@ -19,6 +19,10 @@ router.get('/room', function(req, res, next) {
   res.render('room', { title: 'Join your room' });
 });
 
+router.get('/new', function(req, res, next) {
+  res.render('new', { title: 'Create story' });
+});
+
 
 
 router.get('/room', function(req, res, next) {

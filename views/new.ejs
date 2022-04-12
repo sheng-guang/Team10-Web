@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <script src="/socket.io/socket.io.js"></script>
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/javascripts/index.js"></script>
+    <script src="/javascripts/canvas.js"></script>
+</head>
+<body onload="init()">
+<div id="initial_form" style="display: block">
+    <h1>Create a new story</h1>
+</div>
+<form method="post" id="upForm" onsubmit="onSubmit('/')">
+    <p>
+        <input type="file" name="picBase64" id="picBase64" onchange="imgChange(event)" accept=".gif,.jpg,.jpeg,.png">
+    </p>
+    <h3>Please write the author, title, and description</h3>
+    <p><label for="title1"> Image's title </label>
+        <input type="text" id="title1" name="title">
+    </p>
+    <p>
+        <label for="description1"> Description </label>
+        <input type="text" id="description1" name="description">
+    </p>
+    <p>
+        <label for="author1"> Author </label>
+        <input type="text" id="author1" name="author">
+    </p>
+
+    <p>
+        <input type="submit" value="Submit" id="upload3">
+    </p>
+</form>
+</body>
