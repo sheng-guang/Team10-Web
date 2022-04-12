@@ -5,9 +5,18 @@ function listenMsg(action){
 
 }
 
-function  sendNote(note){
+var events={}
+function  saveDrawEventToIndexDB(pictureID,roomID,event){
+let key=pictureID+"|"+roomID;
+if(!events[key])events[key]=[];
+var to=events[key];
+to[key].push(event);
 
 }
-function  listenNode(action){
+
+function  getAllDrawEventFromIndexDB(pictureID,roomID,event)
+{
+    if(!events[key])events[key]=[];
+    return events[key];
 
 }
