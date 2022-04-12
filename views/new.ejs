@@ -7,6 +7,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="/javascripts/index.js"></script>
     <script src="/javascripts/canvas.js"></script>
+    <script src="/javascripts/story.js"></script>
+    <script>
+        function send() {
+            addNewStory(document.getElementById("title1"),document.getElementById("picBase64"),document.getElementById("description1"),document.getElementById("author1"));
+        }
+    </script>
 </head>
 <body onload="init()">
 <div id="initial_form" style="display: block">
@@ -30,7 +36,7 @@
     </p>
 
     <p>
-        <input type="submit" value="Submit" id="upload3">
+        <input type="submit" onclick="send()" value="Submit" id="upload3">
     </p>
 </form>
 </body>
