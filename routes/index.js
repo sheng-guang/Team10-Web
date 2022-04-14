@@ -17,7 +17,7 @@ router.get('/detail', function(req, res, next) {
 
 router.get('/room', function(req, res, next) {
   let imgID=req.query.img;
-  res.render('room', { title: 'Join your room',img:imgID });
+  res.render('room', { title: 'My Chat',img:imgID });
 });
 
 router.get('/new', function(req, res, next) {

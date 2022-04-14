@@ -9,7 +9,7 @@ let socket=io();
  * it initialises the interface and the expected socket messages
  * plus the associated actions
  */
-let base64Info = ""
+
 function init() {
     // it sets up the interface so that userId and room are selected
     document.getElementById('initial_form').style.display = 'block';
@@ -35,7 +35,7 @@ function initSocket(){
             hideLoginInterface(room, userId);
         } else {
             //notifies that someone has joined the room
-            writeOnHistory('<b>' + userId + '</b>' + 'joined room ' + room);
+            writeOnHistory('<b>' + userId + '</b>' + ' joined room ' + room);
         }
     });
     //called when a message is received
@@ -45,9 +45,9 @@ function initSocket(){
         writeOnHistory('<b>' + who + ':</b> ' + chatText);
     });
 
-    socket.on('knowledgegraph', function(name, id, desc, url){
+    /**socket.on('knowledgegraph', function(name, id, desc, url){
         resultPanel(name,id,desc,url).then(r=>{})
-    });
+    });*/
 }
 
 function resultPanel(resultname, resultId, desc, url){
@@ -93,8 +93,9 @@ function connectToRoom() {
     let imageUrl= document.getElementById('image_url').value;
     if (!name) name = 'Unknown-' + Math.random();
     //@todo join the room
-    initCanvas(socket, imageUrl);
-    hideLoginInterface(roomNo, name);
+    socket.emit('create or join',roomNo,name);
+    /**initCanvas(socket, imageUrl);
+    hideLoginInterface(roomNo, name);*/
 }
 
 /**
@@ -103,13 +104,13 @@ function connectToRoom() {
  * @param text: the text to append
  */
 function writeOnHistory(text) {
-    if (text==='') return;
+    /**if (text==='') return;*/
     let history = document.getElementById('history');
     let paragraph = document.createElement('p');
     paragraph.innerHTML = text;
     history.appendChild(paragraph);
     // scroll to the last element
-    history.scrollTop = history.scrollHeight;
+    /**history.scrollTop = history.scrollHeight;*/
     document.getElementById('chat_input').value = '';
 }
 
