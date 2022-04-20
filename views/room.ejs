@@ -16,6 +16,7 @@
 
 </head>
 <body onload="init()">
+
 <div id="initial_form" style="display: block">
     <div id="connect-room">
             <h1><%= title %></h1>
@@ -31,7 +32,7 @@
             </p>
             <p style=" width: 100%">
                 <label for="image_url"> Image (URL) </label>
-                <input type="text" id="image_url" name="image_url">
+                <label id="image_url"><%= img %></label>
             </p>
             <div class="btdiv">
                 <button id="connect" onclick="connectToRoom()">Connect</button>
