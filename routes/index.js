@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var chatModel = require('../models/chat');
+var chatModel = require('../models/ChatModel');
 
 const chat = require('../controller/ChatController');
 const initDB= require('../controller/init');

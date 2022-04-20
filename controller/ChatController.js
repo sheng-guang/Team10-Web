@@ -1,4 +1,4 @@
-let ChatModel = require('../models/chat');
+let ChatModel = require('../models/ChatModel');
 
 exports.insert = function (req, res) {
     let userData = req.body;
