@@ -7,7 +7,7 @@ const ChatSchema = new Schema(
         ImageTitle:{type: String, max:20},//required true
         Description:{type: String, max:100},//required true
         Author: {type:String},
-        BaseCode:{type:String}
+        //BaseCode:{type:String}
     }
 );
 
