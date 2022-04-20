@@ -6,20 +6,25 @@ exports.insert = function (req, res) {
         res.status(403).send('No data sent!')
     }
 
-    let chatModel= new ChatModel({
-        first_name: userData.firstname,
-        family_name: userData.lastname,
-        dob: userData.year
-    });
-    console.log('received: ' + chatModel);
+    try{
+        let chatModel= new ChatModel({
+            ImageTitle: userData.title,
+            Description: userData.description,
+            Author: userData.author,
+            //Basecode: userData.Basecode
+        });
+        console.log('received: ' + chatModel);
 
-    character.save()
-        .then ((results) => {
-            console.log(results._id);
-            res.json(character);
-        })
-        .catch ((error) => {
-            res.status(500).json('Could not insert - probably incorrect data! ' + JSON.stringify(error));
-        })
+        chatModel.save(function (err) {
+            if (err) {
+                res.status(500).send('Invalid data');
+            }
+            console.log('Data send successfully');
 
+            res.setHeader('Content-Type', 'application/json');
+            res.send(JSON.stringify(chat))
+        });
+    } catch (e) {
+        res.status(500).send('Error: ' + e);
+    }
 }
