@@ -1,4 +1,4 @@
-let mongoose = require('../database/db-connect');
+let mongoose = require('../database/ChatDatabase');
 
 let Schema = mongoose.Schema;
 
