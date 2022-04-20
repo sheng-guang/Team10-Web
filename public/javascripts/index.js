@@ -95,8 +95,8 @@ function connectToRoom() {
     if (!name) name = 'Unknown-' + Math.random();
     //@todo join the room
     socket.emit('create or join',roomNo,name);
-    /**initCanvas(socket, imageUrl);
-    hideLoginInterface(roomNo, name);*/
+    initCanvas(socket, imageUrl);
+    hideLoginInterface(roomNo, name);
 }
 
 /**
