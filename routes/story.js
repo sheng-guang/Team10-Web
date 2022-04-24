@@ -20,7 +20,7 @@ router.get('/upload', function(req, res, next) {
     newstory.description=description;
     newstory.author=author;
     list.push(newstory);
-
+console.log("on server  get"+newstory);
 
     //mongo
     res.send();

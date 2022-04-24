@@ -5,13 +5,36 @@
     <script src="/socket.io/socket.io.js"></script>
     <link rel='stylesheet' href='/stylesheets/style.css'/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/javascripts/DataBase.js" type="module"></script>
     <script src="/javascripts/index.js"></script>
     <script src="/javascripts/canvas.js"></script>
     <script src="/javascripts/story.js"></script>
     <script>
+
         function send() {
-            addNewStory(document.getElementById("title1").value,document.getElementById("picBase64").value,document.getElementById("description1").value,document.getElementById("author1").value);
-            console.log(getAllStory());
+            let title=document.getElementById("title1").value;
+            let picture=document.getElementById("picBase64").value;
+            let description=document.getElementById("description1").value;
+            let author=document.getElementById("author1").value;
+            addNewStory(title,picture,description,author);
+            // SendToServer(title,picture,description,author);
+            ToHomePage();
+        }
+        function  SendToServer(title,picture,description,author){
+            axios.get('/upload', {
+                params: {
+                    "title": title,
+                    "description":description,
+                    "author":author
+                }
+            }) .then(response=> {
+                console.log("===success  "+response)
+            }) .catch(error=> {
+                console.log("===error   "+error)
+            });
+        }
+        function ToHomePage(){
+            location.href="http://localhost:3000"
         }
     </script>
 </head>

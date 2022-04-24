@@ -5,6 +5,7 @@
     <script src="/socket.io/socket.io.js"></script>
     <link rel='stylesheet' href='/stylesheets/style.css'/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/javascripts/DataBase.js" type="module"></script>
     <script src="/javascripts/index.js"></script>
     <script src="/javascripts/canvas.js"></script>
     <script src="/javascripts/story.js"></script>
@@ -15,45 +16,58 @@
         function  LoadList(){
             console.log("load List");
 
-            getAllStory();
-            var datas=getAllStory();
-            console.log(datas);
+
+            GetAllStory()
+                .then(x=>{
+                    console.log(x);
+                    let example={}
+                    example.title="example ";
+                    example.description="example1   example1   example1   example1   example1   "
+                    example.picture="images/SecretAgent.jpg";
+                    example.author="author1"
+                    x.push(example);
+
+                    let datas=x;
+
+                    let html="";
+                    html+='<th style="font-size: 24px;width: 10%" > title </th>';
+                    html+='<th style="font-size: 24px;width: 20%"> picture </th>';
+                    html+='<th style="font-size: 24px;width: 50%" > description </th>';
+                    html+='<th style="font-size: 24px;width: 20%" > join </th>';
+                    for(i = datas.length-1; i >=0; i--) {
+                        index=i;
+
+                        html+="<tr>"
+
+                        html+= '<th style="font-size: 20px">'
+                        html+=datas[i].title;
+                        html+='</th>';
+                        let picture= '"'+datas[i].picture+'"';
+                        html+='<th>'
+                        html+= '<img  src='+picture+' alt="Pulpit rock" width="300" height="200">'
+                        html+='</th>';
+
+                        html+= '<th style="font-size: 16px ; text-align:left;">'
+                        html+=datas[i].description;
+                        html+='</th>';
+
+                        html+= '<th>'
+                        let func='\''+'ToNewPage('+picture+')'+'\'';
+                        html+='<button  style="width: 200px; height: 80px;"  onClick='+func+'> join room </button>'
+
+                        html+='</th>';
+
+                        html+="</tr>"
+                    }
+                    document.getElementById("list").innerHTML=html;
 
 
-            let html="";
-            html+='<th style="font-size: 24px;width: 10%" > title </th>';
-            html+='<th style="font-size: 24px;width: 20%"> picture </th>';
-            html+='<th style="font-size: 24px;width: 50%" > description </th>';
-            html+='<th style="font-size: 24px;width: 20%" > join </th>';
-            for(i = 0; i < datas.length; i++) {
-                index=i;
-
-                html+="<tr>"
-
-                html+= '<th style="font-size: 20px">'
-                html+=datas[i].title;
-                html+='</th>';
-
-
-                html+='<th>'
-                html+= '<img  src="images/SecretAgent.jpg" alt="Pulpit rock" width="300" height="200">'
-                html+='</th>';
+                }).catch(e=>{
+                    console.log("error  e");
+            });
 
 
 
-                html+= '<th style="font-size: 16px ; text-align:left;">'
-                html+=datas[i].description;
-                html+='</th>';
-
-                html+= '<th>'
-                //          html+='<button  style="width: 200px; height: 80px;"onClick="ToNewPage(' + index +  ')" > join room </button>'
-                html+='<button  style="width: 200px; height: 80px;"  onClick= \" ToNewPage(\'images/SecretAgent.jpg\') \" > join room </button>'
-
-                html+='</th>';
-
-                html+="</tr>"
-            }
-            document.getElementById("list").innerHTML=html;
         }
 
         function OnLoad(){
@@ -69,62 +83,13 @@
 <body onload="OnLoad()">
 <div id="initial_form" style="display: block">
     <h1><%= title %></h1>
-<!--    <span>-->
-<!--        <a href="/room">-->
-<!--            <h5>Join in a room</h5>-->
-<!--        </a>-->
-<!--    </span>-->
 
     <a href="/new"><h1>Creating a new story</h1></a>
     <table id="list">
 
     </table>
-<!--    <h2>Tasks' information and background</h2>-->
-<!--    <div>-->
-<!--        <a href="/detail"><h1>The Secret agent by Joseph Conrad in 1907</h1></a>-->
-<!--    </div>-->
-<!--    <img src="images/SecretAgent.jpg">-->
-
-<!--    <p style="font-size: 16px">Set in London in 1886, the novel follows the life of Adolf Verloc, a secret agent. Verloc is also a businessman who owns a shop which sells pornographic material, contraceptives and bric-a-brac. <br/>-->
-<!--        He lives with his wife Winnie, his mother-in-law, and his brother-in-law, Stevie. Stevie has a mental disability, possibly autism,[6] which causes him to be excitable; his sister, Verloc's wife, attends to him, treating him more as a son than as a brother.
-</p>-->
-<!--    <p>Please insert the id of the Room you want to Join, if you do not have a room id, click Generate Room</p>-->
-
-<!--    <form onsubmit="return false;">-->
-<!--        <p><label for="name"> Your name </label>-->
-<!--            <input type="text" id="name" name="name">-->
-<!--        </p>-->
-<!--        <p>-->
-<!--            <label for="roomNo"> Your room </label>-->
-<!--            <input type="text" id="roomNo" name="roomNo">-->
-<!--            <button id="roomNoGenerator" onclick="generateRoom()">Generate Room</button>-->
-<!--        </p>-->
-<!--        <p style=" width: 100%"><label for="image_url"> Image (URL) </label><input type="text" id="image_url" name="image_url"></p>-->
-<!--        <button id="connect" onclick="connectToRoom()">Connect</button>-->
-<!--    </form>-->
-
 
 </div>
-<!--<div id="chat_interface" style="display: none">-->
-<!--    <div>-->
-<!--    <p><div id="who_you_are" style="display: inline" style="height: 10vh"></div>, you are in room: <div id="in_room" style="display: inline"></div>-->
-<!--    </div>-->
-<!--    </p>-->
-<!--    <div style="width: 100%; height: 50vh">-->
-<!--            <img id="image" height="100%" >-->
-<!--            <canvas  id="canvas" ></canvas>-->
-<!--    </div>-->
-<!--&lt;!&ndash;    </div>&ndash;&gt;-->
-<!--    <div id="history" style="height: 35vh" class="boxed scrolling" ></div>-->
-<!--    <div id="input" style="height: 5vh" class=" boxed">-->
-<!--        <form onsubmit="return false;" style="width: 100%">-->
-<!--            <p>-->
-<!--                <label for="name"> chat: </label>-->
-<!--                <input type="text" id="chat_input" name="chat_input" style="width: 80%">-->
-<!--                <button id="chat_send" onclick="sendChatText()">Send</button>-->
-<!--            </p>-->
-<!--        </form>-->
-<!--    </div>-->
-<!--</div>-->
+
 </body>
 </html>
