@@ -52,6 +52,25 @@
         <canvas  id="canvas" ></canvas>
     </div>
 
+    <!-- knowledge graph -->
+
+
+    <h3>search knowledge graph</h3>
+    <div class="myRow" id="typeForm">
+        <label for="myType">Type: </label><input type="text" id="myType">
+        <button onclick="widgetInit()">Set type</button>
+    </div>
+    <div class="myRow" id='widget' style="display: none">
+        <label for="myInput">Search for: </label><input type="text" id="myInput">
+        <div class="myRow" id="typeSet"></div>
+    </div>
+    <div>
+        <div class='resultPanel' id="resultPanel" style="float:right">
+
+        </div>
+
+    </div>
+
 
 
     <div id="history" style="height: 50vh" class="boxed scrolling" ></div>

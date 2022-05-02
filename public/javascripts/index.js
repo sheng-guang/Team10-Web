@@ -1,7 +1,7 @@
 let name = null;
 let roomNo = null;
 let socket=io();
-
+const api= 'AIzaSyAG7w627q-djB4gTTahssufwNOImRqdYKM';
 
 
 /**
@@ -45,9 +45,9 @@ function initSocket(){
         writeOnHistory('<b>' + who + ':</b> ' + chatText);
     });
 
-    /**socket.on('knowledgegraph', function(name, id, desc, url){
+    socket.on('knowledgegraph', function(name, id, desc, url){
         resultPanel(name,id,desc,url).then(r=>{})
-    });*/
+    });
 }
 
 function resultPanel(resultname, resultId, desc, url){
@@ -59,6 +59,40 @@ function resultPanel(resultname, resultId, desc, url){
         '<div>' + desc + '</div><div><a href='+ url + '>Link to Webpage</a></div>';
     panel.appendChild(results);
     panel.style.display = 'block';
+}
+/** method to search knowledge graph */
+function widgetInit(){
+    let type= document.getElementById("myType").value;
+    if(type){
+        let config = {
+            'limit': 10,
+            'languages': ['en'],
+            'types': [type],
+            'maxDescChars': 100,
+            'selectHandler': selectItem,
+        }
+
+        KGSearchWidget(api, document.getElementById("myInput"), config);
+        document.getElementById('typeSet').innerHTML= 'of type: '+type;
+        document.getElementById('widget').style.display='block';
+        document.getElementById('typeForm').style.display= 'none';
+    }else {
+        alert('Set the type please');
+        document.getElementById('widget').style.display='none';
+        document.getElementById('resultPanel').style.display='none';
+        document.getElementById('typeSet').innerHTML= '';
+        document.getElementById('typeForm').style.display= 'block';
+    }
+
+
+}
+
+function selectItem(event) {
+    let row = event.row;
+    room = document.getElementById('roomNo').value;
+
+    resultPanel(row.name, row.id, row.rc, row.qc);
+    socket.emit('knowledge graph', room, row.name, row.id, row.rc, row.qc);
 }
 /** acp21zo */
 
