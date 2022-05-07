@@ -20,12 +20,4 @@
 //     return GetAllStory();
 // }
 
-function addNewStory(title,picture,description,author){
-    var ne={};
-    ne.title=title;
-    ne.picture=picture;
-    ne.description=description;
-    ne.author=author;
-    StoreStory(ne);
-    // all.push(ne);
-}
+
