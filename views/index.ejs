@@ -9,13 +9,76 @@
     <script src="/javascripts/index.js"></script>
     <script src="/javascripts/canvas.js"></script>
     <script src="/javascripts/story.js"></script>
+    <style>
+        table{
+            width:97%;
+            box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+            border-collapse:collapse;
+            letter-spacing:1px;
+        }
+        table,th,tr,td {
+            border-bottom: 1px solid #dedede;
+            /*padding: 29px;*/
+
+        }
+        th.description{
+            text-align:left;
+            font-size: 16px;
+            /*vertical-align:top;*/
+        }
+        th.title{
+            font-size: 24px;
+        }
+        th.author{
+            font-size: 20px;
+        }
+        th.date{
+            font-size: 16px;
+        }
+    </style>
     <script>
         function ToNewPage(i){
             location.href="http://localhost:3000/room?"+"img="+i
         }
-        function th(s){
-            if(!s)s='';
-            return '<th>'+s+'</th>';
+        var sortName='author ^';
+        var authorColomName='author ^';
+        var dateColomName='date';
+        var sortFunc=function (a,b){return  a.author>b.author?-1:1;}
+        function sortAuthor(){
+            if(sortName=='author v'){
+                sortName='author ^'
+                sortFunc=function (a,b){return  a.author>b.author?-1:1;}
+            }
+            else {
+                sortName='author v'
+                sortFunc=function (a,b){return a.author<b.author?-1:1;}
+            }
+            authorColomName=sortName;
+            dateColomName='date  ';
+            LoadList();
+        }
+        function  sortDate(){
+
+            if(sortName=='date v'){
+                sortName='date ^'
+                sortFunc=function (a,b){return  a.t>b.t?-1:1;}
+            }
+            else {
+                sortName='date v'
+                sortFunc=function (a,b){return a.t<b.t?-1:1;}
+            }
+            authorColomName='author  '
+            dateColomName=sortName;
+            LoadList();
+        }
+
+        function th(s){            if(!s)s='';            return '<th>'+s+'</th>';        }
+        function th(s,c){            if(!s)s='';            return '<th class='+c+'>'+s+'</th>';        }
+
+        function  sortList(x){
+            console.log(x);
+            console.log(typeof (x));
+            if(sortFunc)x.sort(sortFunc);
         }
         function  LoadList(){
             console.log("load List");
@@ -23,42 +86,51 @@
 
             GetAllStory()
                 .then(x=>{
-                    console.log(x);
+
                     let example={}
                     example.title="example ";
                     example.description="example1   example1   example1   example1   example1   "
                     example.picture="images/SecretAgent.jpg";
                     example.author="author1"
+                    example.date="2022-05-06"
+                    example.t="1651959799";
                     x.push(example);
+
+                    sortList(x);
 
                     let datas=x;
 
                     let html="";
                     html+='<th style="font-size: 24px;width: 10%" > title </th>';
-                    html+='<th style="font-size: 24px;width: 10%" > author </th>';
-                    html+='<th style="font-size: 24px;width: 10%" > date</th>';
+                    html+='<th style="width: 6%" > <button id="author" style="width:100%;font-size: 24px;" onclick="sortAuthor()">'+authorColomName+'</button></th>';
+                    html+='<th style="width: 6%" >  <button id="date" style="width:100%;font-size: 24px;" onclick="sortDate()">'+dateColomName+'</button></th>';
 
                     html+='<th style="font-size: 24px;width: 20%"> picture </th>';
-                    html+='<th style="font-size: 24px;width: 50%" > description </th>';
-                    html+='<th style="font-size: 24px;width: 20%" > join </th>';
+                    html+='<th style="font-size: 24px;width: 40%" > description </th>';
+                    html+='<th style="font-size: 24px;width: 10%" > join </th>';
                     for(i = datas.length-1; i >=0; i--) {
                         index=i;
 
                         html+="<tr>"
                         //title
-                        html+=th(datas[i].title);
+                        html+=th(datas[i].title,"title");
+
                         //author
-                        html+=th(datas[i].author);
+                        html+=th(datas[i].author,"author");
+
                         //date
-                        html+=th(datas[i].date);
+                        html+=th(datas[i].date,"date");
+
                         //pic
                         let picture= '"'+datas[i].picture+'"';
-                        html+=th('<img  src='+picture+' alt="Pulpit rock" width="300" height="200">');
+                        html+=th('<img  style=" object-fit:contain;width: 300px;height: 200px"  src='+picture+'  >');
+
                         //description
-                        html+=th(datas[i].description);
+                        html+=th(datas[i].description,"description");
+
                         //join
                         let func='\''+'ToNewPage('+picture+')'+'\'';
-                        html+=th('<button  style="width: 200px; height: 80px;"  onClick='+func+'> join room </button>');
+                        html+=th('<button  style="font-size: 21px; width: 100%; height: 200px;"  onClick='+func+'> join room </button>');
 
                         html+="</tr>"
                     }
@@ -66,7 +138,8 @@
 
 
                 }).catch(e=>{
-                    console.log("error  e");
+                console.log(e.message);
+
             });
 
 
@@ -85,7 +158,7 @@
 
 <body onload="OnLoad()">
 <div id="initial_form" style="display: block">
-    <h1><%= title %></h1>
+    <h1 style="text-align:center;font-size: 30px;"><%= title %></h1>
 
     <a href="/new"><h1>Creating a new story</h1></a>
     <table id="list">

@@ -10,23 +10,30 @@
     <script src="/javascripts/canvas.js"></script>
     <script src="/javascripts/story.js"></script>
     <script>
-         async function addNewStory(title,picture,description,author){
-            var ne={};
-            ne.title=title;
-            ne.picture=picture;
-            ne.description=description;
-            ne.author=author;
+         async function addNewStory(ne){
             console.log("new story "+ne);
-            await StoreStory(ne);
+            return  await StoreStory(ne);
             // all.push(ne);
         }
+        function  getDate(){
+             let d=new Date();
+             var re=d.getFullYear()+"-"+d.getMonth()+"-"+d.getDay();
+             re+=" "+d.getHours()+":"+d.getMinutes();
+             console.log(re);
+            return re;
+        }
         function send() {
-            let title=document.getElementById("title1").value;
-            let picture=document.getElementById("picBase64").value;
-            let description=document.getElementById("description1").value;
-            let author=document.getElementById("author1").value;
-            addNewStory(title,picture,description,author).then(x=>{
-                ToHomePage();
+             var ne={}
+            ne.title=document.getElementById("title1").value;
+            ne.picture=document.getElementById("picBase64").value;
+            ne.description=document.getElementById("description1").value;
+            ne.author=document.getElementById("author1").value;
+            ne.date=getDate()
+            ne.t= Date.parse(new Date());
+            console.log(ne.date);
+            console.log(ne.t);
+            addNewStory(ne).then(x=>{
+                // ToHomePage();
             })
             .finally(()=>{
                 ToHomePage();
