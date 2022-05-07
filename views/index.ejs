@@ -13,6 +13,10 @@
         function ToNewPage(i){
             location.href="http://localhost:3000/room?"+"img="+i
         }
+        function th(s){
+            if(!s)s='';
+            return '<th>'+s+'</th>';
+        }
         function  LoadList(){
             console.log("load List");
 
@@ -31,6 +35,9 @@
 
                     let html="";
                     html+='<th style="font-size: 24px;width: 10%" > title </th>';
+                    html+='<th style="font-size: 24px;width: 10%" > author </th>';
+                    html+='<th style="font-size: 24px;width: 10%" > date</th>';
+
                     html+='<th style="font-size: 24px;width: 20%"> picture </th>';
                     html+='<th style="font-size: 24px;width: 50%" > description </th>';
                     html+='<th style="font-size: 24px;width: 20%" > join </th>';
@@ -38,24 +45,20 @@
                         index=i;
 
                         html+="<tr>"
-
-                        html+= '<th style="font-size: 20px">'
-                        html+=datas[i].title;
-                        html+='</th>';
+                        //title
+                        html+=th(datas[i].title);
+                        //author
+                        html+=th(datas[i].author);
+                        //date
+                        html+=th(datas[i].date);
+                        //pic
                         let picture= '"'+datas[i].picture+'"';
-                        html+='<th>'
-                        html+= '<img  src='+picture+' alt="Pulpit rock" width="300" height="200">'
-                        html+='</th>';
-
-                        html+= '<th style="font-size: 16px ; text-align:left;">'
-                        html+=datas[i].description;
-                        html+='</th>';
-
-                        html+= '<th>'
+                        html+=th('<img  src='+picture+' alt="Pulpit rock" width="300" height="200">');
+                        //description
+                        html+=th(datas[i].description);
+                        //join
                         let func='\''+'ToNewPage('+picture+')'+'\'';
-                        html+='<button  style="width: 200px; height: 80px;"  onClick='+func+'> join room </button>'
-
-                        html+='</th>';
+                        html+=th('<button  style="width: 200px; height: 80px;"  onClick='+func+'> join room </button>');
 
                         html+="</tr>"
                     }
