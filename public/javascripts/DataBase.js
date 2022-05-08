@@ -28,9 +28,9 @@ function upgrade(db,oldVersion, newVersion){
 
 }
 window.initDatabase=async function initDatabase(collection_name){
-    console.log('ensure '+collection_name);
+    // console.log('ensure '+collection_name);
     if(!db)db=await idb.openDB(DB_Name);
-    console.log(db.objectStoreNames);
+    // console.log(db.objectStoreNames);
     if(db.objectStoreNames.contains(collection_name))return;
    if( !toCreat[collection_name]){
         toCreat[collection_name]="";
@@ -74,23 +74,23 @@ window.GetAllStory=async function GetAllStory(){
 
 }
 
-window.StoreTalk=async  function StoreTalk(username,room,line){
-    let key=username+"|"+room;
+window.RoomStore=async  function RoomStore(username,room,kind,v){
+    let key=username+"|"+room+"|"+kind;
     await initDatabase(key);
     if(!db)return;
-    let to={ line:line};
+    let to=v;
     try{
         let tx = await db.transaction(key, 'readwrite');
         let store = await tx.objectStore(key);
         await store.put(to);
         await  tx.complete;
-        console.log('added item to the store! '+ JSON.stringify(to));
+        // console.log('added item to the store! '+ JSON.stringify(to));
     } catch(error) {
         console.log('error: I could not store the element. Reason: '+error);
     }
 }
-window.getAllTalk=async function getAllTalk(username,room){
-    let key=username+"|"+room;
+window.RoomGet=async function RoomGet(username,room,kind){
+    let key=username+"|"+room+"|"+kind;
     await initDatabase(key);
     if(!db)return;
     try{

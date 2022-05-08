@@ -89,10 +89,10 @@ function widgetInit(){
 
 function selectItem(event) {
     let row = event.row;
-    room = document.getElementById('roomNo').value;
+    roomNo = document.getElementById('roomNo').value;
 
     resultPanel(row.name, row.id, row.rc, row.qc);
-    socket.emit('knowledge graph', room, row.name, row.id, row.rc, row.qc);
+    socket.emit('knowledge graph', roomNo, row.name, row.id, row.rc, row.qc);
 }
 /** acp21zo */
 
@@ -134,9 +134,9 @@ function connectToRoom() {
     loadHis()
 }
 function loadHis(){
-    getAllTalk(name,roomNo).then(x=>{
+    RoomGet(name,roomNo,"t").then(x=>{
         x.forEach(xx=>{
-            writeOnHistory(xx.line,true);
+            writeOnHistory(xx.text,true);
         })
     })
 }
@@ -146,7 +146,7 @@ function loadHis(){
  * @param text: the text to append
  */
 function writeOnHistory(text,dont_store) {
-    if(!dont_store)StoreTalk(name,roomNo,text);
+    if(!dont_store)RoomStore(name,roomNo,"t",{text:text});
     /**if (text==='') return;*/
     let history = document.getElementById('history');
     let paragraph = document.createElement('p');

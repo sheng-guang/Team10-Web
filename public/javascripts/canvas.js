@@ -1,8 +1,6 @@
 /**
  * this file contains the functions to control the drawing on the canvas
  */
-let room;
-let userId;
 let color = 'red', thickness = 4;
 
 /**
@@ -13,7 +11,11 @@ let color = 'red', thickness = 4;
  */
 function initCanvas(sckt, imageUrl) {
     socket = sckt;
+
     let roomNo = document.getElementById('roomNo').value;
+    let userId = document.getElementById('name').value;
+
+
     let RoomAndUrl = roomNo + '+' + imageUrl;
     let flag = false,
         prevX, prevY, currX, currY = 0;
@@ -23,14 +25,13 @@ function initCanvas(sckt, imageUrl) {
     let ctx = cvx.getContext('2d');
     ctx.clearRect(0,0,canvas.width,canvas.height);
     img.src = imageUrl;
-    userId = document.getElementById('name').value;
 
     // event on the canvas when the mouse is on it
     canvas.on('mousemove mousedown mouseup mouseout', function (e) {
         prevX = currX;
         prevY = currY;
-        currX = e.clientX - canvas.position().left;
-        currY = e.clientY - canvas.position().top;
+        currX = e.clientX - cvx.getBoundingClientRect().left;
+        currY = e.clientY - cvx.getBoundingClientRect().top;
         if (e.type === 'mousedown') {
             flag = true;
         }
@@ -43,8 +44,6 @@ function initCanvas(sckt, imageUrl) {
                 drawOnCanvas(ctx, canvas.width, canvas.height, prevX, prevY, currX, currY, color, thickness);
                 // @todo if you draw on the canvas, you may want to let everyone know via socket.io (socket.emit...)  by sending them
                 socket.emit('draw',roomNo,userId,canvas.width,canvas.height,prevX,prevY,currX,currY,color,thickness);
-
-
                 // room, userId, canvas.width, canvas.height, prevX, prevY, currX, currY, color, thickness
             }
         }
@@ -58,11 +57,32 @@ function initCanvas(sckt, imageUrl) {
         // @todo if you clear the canvas, you want to let everyone know via socket.io (socket.emit...)
 
     });
+    function loadDrawHis(){
+        RoomGet(userId,roomNo,"line").then(x=>{
+            console.log("re draw"+x.length);
+            x.forEach(xx=>{
+                try {
+                    drawOnCanvas(ctx,canvas.width,canvas.height,xx.prevX,xx.prevY,xx.currX,xx.currY,xx.color,xx.thickness);
 
+                }
+                catch (e){
+                    console.log(e.message);
+                }
+            })
+            console.log("re draw"+x.length);
+
+        })
+    }
     // @todo here you want to capture the event on the socket when someone else is drawing on their canvas (socket.on...)
-    socket.on('draw',function(room, userId, width,height ,prevX, prevY, currX, currY,color, thickness) {
+    socket.on('draw',function(Room, from, width,height ,prevX, prevY, currX, currY,color, thickness) {
+
+        params={Room:Room,from:from,width:width,height:height,
+            prevX:prevX,prevY:prevY,currX:currX,currY:currY,color:color,thickness:thickness};
+        RoomStore(userId,roomNo,"line",params);
+
         drawOnCanvas(ctx, canvas.width, canvas.height, prevX, prevY, currX, currY, color, thickness);
     });
+
     // I suggest that you receive userId, canvasWidth, canvasHeight, x1, y21, x2, y2, color, thickness
     // and then you call
     //     let ctx = canvas[0].getContext('2d');
@@ -94,6 +114,7 @@ function initCanvas(sckt, imageUrl) {
                 img.style.display = 'none';
             }
         }, 10);
+        loadDrawHis();
     });
 }
 
