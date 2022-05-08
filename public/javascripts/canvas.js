@@ -57,7 +57,7 @@ function initCanvas(sckt, imageUrl) {
         // @todo if you clear the canvas, you want to let everyone know via socket.io (socket.emit...)
 
     });
-    function loadDrawHis(){
+    function loadDrawHis(ctx,canvas){
         RoomGet(userId,roomNo,"line").then(x=>{
             console.log("re draw"+x.length);
             x.forEach(xx=>{
@@ -112,9 +112,10 @@ function initCanvas(sckt, imageUrl) {
                 drawImageScaled(img, cvx, ctx);
                 // hide the image element as it is not needed
                 img.style.display = 'none';
+                loadDrawHis(ctx,canvas);
+
             }
         }, 10);
-        loadDrawHis();
     });
 }
 
