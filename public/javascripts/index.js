@@ -131,14 +131,22 @@ function connectToRoom() {
     socket.emit('create or join',roomNo,name);
     initCanvas(socket, imageUrl);
     hideLoginInterface(roomNo, name);
+    loadHis()
 }
-
+function loadHis(){
+    getAllTalk(name,roomNo).then(x=>{
+        x.forEach(xx=>{
+            writeOnHistory(xx.line,true);
+        })
+    })
+}
 /**
  * it appends the given html text to the history div
  * this is to be called when the socket receives the chat message (socket.on ('message'...)
  * @param text: the text to append
  */
-function writeOnHistory(text) {
+function writeOnHistory(text,dont_store) {
+    if(!dont_store)StoreTalk(name,roomNo,text);
     /**if (text==='') return;*/
     let history = document.getElementById('history');
     let paragraph = document.createElement('p');
