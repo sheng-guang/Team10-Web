@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var chatModel = require('../models/chat');
+// var chatModel = require('../models/chat');
 
 var story={};
 story.title='0'
@@ -11,7 +11,7 @@ const chat = require('../controller/ChatController');
 const initDB= require('../controller/init');
 initDB.init();
 
-router.get('/upload', function(req, res, next) {
+router.post('/upload', function(req, res, next) {
     var title=req.query.title;
     var description=req.query.description;
     var author=req.query.author;
@@ -32,3 +32,4 @@ router.get('/download', function(req, res, next){
     res.json(list);
     }
 );
+module.exports = router;

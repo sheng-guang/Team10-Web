@@ -3,23 +3,11 @@ const swaggerUI = require('swagger-ui-express')
 const swaggerDoc = require('swagger-jsdoc')
 
 
-const options = {
-    definition: {
-        openapi: '3.0.0',
-        info: {
-            title: 'secret',
-            version: '1.0',
-            description: `api list`
-        }
-    },
-
-    apis: ['./routes/*.js']
-}
 var swaggerJson = function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     res.send(swaggerSpec);
 }
-const swaggerSpec = swaggerDoc(options)
+const swaggerSpec = swaggerDoc(require("./swagger_doc"));
 
 var swaggerInstall = function(app) {
 
