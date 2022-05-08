@@ -4,88 +4,101 @@
  *
  */
 
-import * as idb from 'https://cdn.jsdelivr.net/npm/idb@7/+esm';
+import * as idb from "./idb.js";
 
-
-////////////////// DATABASE //////////////////
-// the database receives from the server the following structure
-
-/** class WeatherForecast{
- *  constructor (location, date, forecast, temperature, wind, precipitations) {
- *    this.location= location;
- *    this.date= date,
- *    this.forecast=forecast;
- *    this.temperature= temperature;
- *    this.wind= wind;
- *    this.precipitations= precipitations;
- *  }
- *}
- */
-let db;
+var db;
 
 const DB_Name= 'db_Secrets';
-const STORY_NAME= 'stories';
 
-/**
- * it inits the database and creates an index for the sum field
- */
-async function initDatabase(){
-    if (!db) {
-        db = await idb.openDB(DB_Name, 2, {
-            upgrade(upgradeDb, oldVersion, newVersion) {
-                if (!upgradeDb.objectStoreNames.contains(STORY_NAME)) {
-                    let sumsDB = upgradeDb.createObjectStore(STORY_NAME, {
-                        keyPath: 'id',
-                        autoIncrement: true
-                    });
-                    // sumsDB.createIndex('sum', 'sum', {unique: false, multiEntry: true});
-                }
-            }
-        });
-        console.log('db created');
-    }
+function ensure_Collection(db,to){
+    console.log(to);
+    if (db.objectStoreNames.contains(to))return;
+    let Store = db.createObjectStore(to, {
+        keyPath: 'id',
+        autoIncrement: true
+    });
+
 }
-window.initDatabase= initDatabase;
-
-async function StoreStory(storyObj){
-    if(!db)
-        await initDatabase();
-    if (db) {
-        try{
-            let tx = await db.transaction(STORY_NAME, 'readwrite');
-            let store = await tx.objectStore(STORY_NAME);
-            await store.put(storyObj);
-            await  tx.complete;
-            console.log('added item to the store! '+ JSON.stringify(sumObject));
-        } catch(error) {
-            console.log('error: I could not store the element. Reason: '+error);
-        }
+var toCreat={}
+function upgrade(db,oldVersion, newVersion){
+    console.log("idb upgrade to"+newVersion);
+    for (var key in toCreat) {
+        ensure_Collection(db,key);
     }
 
 }
-window.StoreStory= StoreStory;
+window.initDatabase=async function initDatabase(collection_name){
+    console.log('ensure '+collection_name);
+    if(!db)db=await idb.openDB(DB_Name);
+    console.log(db.objectStoreNames);
+    if(db.objectStoreNames.contains(collection_name))return;
+   if( !toCreat[collection_name]){
+        toCreat[collection_name]="";
+    }
+   console.log(toCreat);
+   await db.close();
+    db=await idb.openDB(DB_Name,db.version+1,{upgrade});
+}
 
 
-async function GetAllStory(){
-    if (!db)
-        await initDatabase();
-    if (db) {
-        try{
-            let tx = await db.transaction(STORY_NAME, 'readonly');
-            let store = await tx.objectStore(STORY_NAME);
-            let all=  store.getAll();
-            // console.log("================================get all  ");
-            // console.log(all);
-            // console.log("get all  ================================");
+const stories="stories";
+window.StoreStory=async function StoreStory(storyObj){
+    await initDatabase(stories);
+    if(!db)return;
+    try{
+        let tx = await db.transaction(stories, 'readwrite');
+        let store = await tx.objectStore(stories);
+        await store.put(storyObj);
+        await  tx.complete;
+        console.log('added item to the store! '+ JSON.stringify(storyObj));
+    } catch(error) {
+        console.log('error: I could not store the element. Reason: '+error);
+    }
 
-            return all;
-        } catch(error) {
-            console.log('error: I could not store the element. Reason: '+error);
-        }
+}
+
+window.GetAllStory=async function GetAllStory(){
+    await initDatabase(stories);
+    if(!db)return;
+    try{
+        let tx = await db.transaction(stories, 'readonly');
+        let store = await tx.objectStore(stories);
+        let all=  store.getAll();
+        // console.log("================================get all  ");
+        // console.log(all);
+        // console.log("get all  ================================");
+        return all;
+    } catch(error) {
+        console.log('error: I could not store the element. Reason: '+error);
+    }
+
+}
+
+window.StoreTalk=async  function StoreTalk(username,room,line){
+    let key=username+"|"+room;
+    await initDatabase(key);
+    if(!db)return;
+    let to={ line:line};
+    try{
+        let tx = await db.transaction(key, 'readwrite');
+        let store = await tx.objectStore(key);
+        await store.put(to);
+        await  tx.complete;
+        console.log('added item to the store! '+ JSON.stringify(to));
+    } catch(error) {
+        console.log('error: I could not store the element. Reason: '+error);
     }
 }
-window.GetAllStory=GetAllStory;
-
-async  function StoryTalk(){
-
+window.getAllTalk=async function getAllTalk(username,room){
+    let key=username+"|"+room;
+    await initDatabase(key);
+    if(!db)return;
+    try{
+        let tx = await db.transaction(key, 'readonly');
+        let store = await tx.objectStore(key);
+        let all=  store.getAll();
+        return all;
+    } catch(error) {
+        console.log('error: I could not store the element. Reason: '+error);
+    }
 }
