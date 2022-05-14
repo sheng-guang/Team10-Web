@@ -12,7 +12,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/detail', function(req, res, next) {
-  res.render('detail', { title: 'Secret Task' });
+  res.render('detail', { title: 'Task details' });
 });
 
 router.get('/room', function(req, res, next) {
