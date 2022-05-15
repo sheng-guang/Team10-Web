@@ -33,7 +33,15 @@ async function send_store(ne){
     catch (e){                 alert(e);             }
 }
 async function  SendToServer(ne){
-    let  re=await axios.post('/story/upload',ne);
+    let  re=await axios.post('/story/upload',{
+        id:ne.id,
+        date:ne.date,
+        timestamps:ne.t,
+        title:ne.title,
+        description:ne.description,
+        author:ne.author,
+        picture:ne.picture,
+    });
     console.log(re);
 }
 
