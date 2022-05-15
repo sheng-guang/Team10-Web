@@ -11,20 +11,10 @@ const chat = require('../controller/ChatController');
 const initDB= require('../controller/init');
 initDB.init();
 
-router.post('/upload', function(req, res, next) {
-    var title=req.query.title;
-    var description=req.query.description;
-    var author=req.query.author;
-    var newstory={};
-    newstory.title=title;
-    newstory.description=description;
-    newstory.author=author;
-    list.push(newstory);
-console.log("on server  get"+newstory);
+router.post('/upload',chat.insert,function (req,res,next){
 
-    //mongo
-    res.send();
 });
+
 
 router.get('/download', function(req, res, next){
     res.setHeader('Content-Type','application/json');
@@ -33,10 +23,5 @@ router.get('/download', function(req, res, next){
     }
 );
 
-router
-    .get('/story', function(req, res, next) {
-        res.render('story', {title: 'ChatModel Insertion Form'});
-    })
 
-    .post('/story', chat.insert);
 module.exports = router;
