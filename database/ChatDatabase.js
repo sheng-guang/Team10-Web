@@ -1,7 +1,7 @@
-const mongoose = require('mongoose')
+let mongoose = require('mongoose')
 
 mongoose.Promise = global.Promise;
-const mongoDB = 'mongodb://localhost:27017/chat';
+let mongoDB = 'mongodb://localhost:27017/chat';
 
 mongoose.Promise = global.Promise;
 
@@ -16,3 +16,4 @@ connection = mongoose.connect(mongoDB, {
     .catch((error) => {
         console.log('connection to mongodb did not work! ' + JSON.stringify(error));
     });
+module.exports = mongoose;
