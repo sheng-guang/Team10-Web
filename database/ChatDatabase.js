@@ -1,3 +1,8 @@
+/**
+ * MongoDB - Chat Database
+ *
+ * @author  Yanan Zhao
+ */
 let mongoose = require('mongoose')
 
 mongoose.Promise = global.Promise;

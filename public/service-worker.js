@@ -1,3 +1,8 @@
+/**
+ * Service worker - Cache then network
+ *
+ * @author  Yanan Zhao
+ */
 let cache= null;
 let dataCacheName = 'storyData-v1';
 let cacheName = 'storyPWA-step-8-1';
