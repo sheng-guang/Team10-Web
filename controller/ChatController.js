@@ -7,19 +7,22 @@ exports.insert = function (req, res) {
     }
 
 
-    let chatModel = new ChatModel({
-        ImageTitle: userData.title,
-        Description: userData.description,
-        Author: userData.author,
-    });
-    console.log('received: ' + chatModel);
+    
+        let chatModel = new ChatModel({
+            ImageTitle: userData.title,
+            Description: userData.description,
+            Author: userData.author,
+            Index: userData.index
+        });
+        console.log('received: ' + chatModel);
 
-    chatModel.save()
-        .then((results) => {
-            console.log(results._id);
-            res.json(chatModel);
-        })
-        .catch((error) => {
-            res.status(500).json('Data is not correct' + JSON.stringify(error));
-        })
-}
+
+        chatModel.save()
+            .then((results) => {
+                console.log(results._id);
+                res.json(chatModel);
+            })
+            .catch((error) => {
+                res.status(500).json('Data is not correct' + JSON.stringify(error));
+            })
+    }
