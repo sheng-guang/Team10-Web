@@ -11,6 +11,7 @@ exports.insert = function (req, res) {
             ImageTitle: userData.title,
             Description: userData.description,
             Author: userData.author,
+            Index:userData.index
         });
         console.log('received: ' + chatModel);
 

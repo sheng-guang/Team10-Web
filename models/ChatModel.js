@@ -10,7 +10,7 @@ let ChatSchema = new Schema(
         ImageTitle:{type: String, max:20},//required true
         Description:{type: String, max:100},//required true
         Author: {type:String},
-
+        Index:{type:String}
     }
 );
 
