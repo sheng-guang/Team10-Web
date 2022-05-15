@@ -14,7 +14,7 @@ function ensure_Collection(db,to){
     console.log(to);
     if (db.objectStoreNames.contains(to))return;
     let Store = db.createObjectStore(to, {
-        keyPath: 'id',
+        keyPath: 'Id',
         autoIncrement: true
     });
 
@@ -50,7 +50,7 @@ window.StoreStory=async function StoreStory(storyObj){
         let store = await tx.objectStore(stories);
         await store.put(storyObj);
         await  tx.complete;
-        console.log('added item to the store! '+ JSON.stringify(storyObj));
+        // console.log('added item to the store! '+ JSON.stringify(storyObj));
     } catch(error) {
         console.log('error: I could not store the element. Reason: '+error);
     }
@@ -71,7 +71,7 @@ window.GetAllStory=async function GetAllStory(){
 }
 window.GetOneStory=async function(i){
     i=parseInt(i);
-    console.log("get story "+i+typeof (i));
+    // console.log("get story "+i+typeof (i));
     await initDatabase(stories);
     if(!db)return;
     try{

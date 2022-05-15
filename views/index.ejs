@@ -8,7 +8,9 @@
     <script src="/javascripts/DataBase.js" type="module"></script>
     <script src="/javascripts/index.js"></script>
     <script src="/javascripts/canvas.js"></script>
-    <script src="/javascripts/story.js"></script>
+    <script src="/javascripts/axios.js"></script>
+
+    <script src="/javascripts/SyncDB.js"></script>
     <style>
         table{
             width:97%;
@@ -41,7 +43,7 @@
             GetOneStory(i).then(x=>{
                 console.log(x);
                 if(!x)throw i+" no found";
-                localStorage.setItem(i,x.picture);
+                localStorage.setItem(i,x.Picture);
                 location.href="http://localhost:3000/room?"+"img="+i
             }).catch(x=>{
                 alert(x);
@@ -74,7 +76,7 @@
                 sortName='date v'
                 sortFunc=function (a,b){return a.t<b.t?-1:1;}
             }
-            authorColomName='author  '
+            authorColomName='author'
             dateColomName=sortName;
             LoadList();
         }
@@ -83,8 +85,8 @@
         function th(s,c){            if(!s)s='';            return '<th class='+c+'>'+s+'</th>';        }
 
         function  sortList(x){
+            console.log("sort list: ");
             console.log(x);
-            console.log(typeof (x));
             if(sortFunc)x.sort(sortFunc);
         }
         function  LoadList(){
@@ -120,22 +122,22 @@
 
                         html+="<tr>"
                         //title
-                        html+=th(datas[i].title,"title");
+                        html+=th(datas[i].ImageTitle,"title");
 
                         //author
-                        html+=th(datas[i].author,"author");
+                        html+=th(datas[i].Author,"author");
 
                         //date
-                        html+=th(datas[i].date,"date");
+                        html+=th(datas[i].Date,"date");
 
                         //pic
-                        let picture= '"'+datas[i].picture+'"';
+                        let picture= '"'+datas[i].Picture+'"';
                         html+=th('<img  style=" object-fit:contain;width: 300px;height: 200px"  src='+picture+'  >');
 
                         //description
-                        html+=th(datas[i].description,"description");
+                        html+=th(datas[i].Description,"description");
 
-                        let to= '"'+datas[i].id+'"';
+                        let to= '"'+datas[i].Id+'"';
                         //join
                         let func='\''+'ToNewPage('+to+')'+'\'';
                         html+=th('<button  style="font-size: 21px; width: 100%; height: 200px;"  onClick='+func+'> join room </button>');
@@ -155,9 +157,18 @@
         }
 
         function OnLoad(){
-            console.log("load");
-            LoadList();
-            init();
+            console.log("load image");
+
+            syncDB().then(x=>{
+
+            }).catch(x=>{
+                console.log(x);
+            })
+            .finally(x=>{
+                LoadList();
+                init();
+            })
+
 
         }
     </script>

@@ -10,17 +10,18 @@ function  getDate(){
 function send() {
     console.log("Send enter");
     var ne={}
-    ne.title=document.getElementById("title1").value;
-    ne.picture=document.getElementById("img").src;
-    ne.description=document.getElementById("description1").value;
-    ne.author=document.getElementById("author1").value;
-
-    ne.date=getDate()
-    ne.t= Date.parse(new Date());
-
+    ne.Date=getDate()
+    ne.Timestamp= Date.parse(new Date());
+    ne.ImageTitle=document.getElementById("title1").value;
+    ne.Description=document.getElementById("description1").value;
+    ne.Author=document.getElementById("author1").value;
+    ne.Picture=document.getElementById("img").src;
+    ne.Id=ne.Timestamp;
 
     send_store(ne).then(x=>{
-        // ToHomePage();
+        ToHomePage();
+    }).catch(x=>{
+        alert(x);
     }).finally(()=>{
 
     })
@@ -33,16 +34,7 @@ async function send_store(ne){
     catch (e){                 alert(e);             }
 }
 async function  SendToServer(ne){
-    let  re=await axios.post('/story/upload',{
-        id:ne.id,
-        date:ne.date,
-        timestamps:ne.t,
-        title:ne.title,
-        description:ne.description,
-        author:ne.author,
-        picture:ne.picture,
-    });
-    console.log(re);
+    let  re=await axios.post('/story/upload',ne);
 }
 
 function ToHomePage(){
@@ -53,7 +45,6 @@ function imgChange(event){
     var file = event.target.files[0];
     var reader = new FileReader();
     reader.onload = function (e) {
-        console.log(e.target.result);
         if ((e.target.result).includes('image'))
         {
             document.getElementById("img").src=e.target.result;

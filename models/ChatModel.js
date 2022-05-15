@@ -10,7 +10,7 @@ let ChatSchema = new Schema(
     {
         Id:{type:Number},
         Date: {type:String},
-        Timestamp:{type:Number},
+        Timestamp:{type:String},
         ImageTitle:{type: String},
         Description:{type: String},
         Author: {type:String},

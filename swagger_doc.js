@@ -5,7 +5,7 @@ const server1={
 }
 
 paths['/story/download']={
-    get: {
+    post: {
         summary:"get all stories",
         responses:{
             '200':{
@@ -22,7 +22,33 @@ paths['/story/upload']={
             '200':{
                 description:"success"
             }
-        }
+        },
+        parameters:[
+            {
+                "in": "body",
+                "name": "body",
+                "description": "task object",
+                "required": true,
+                "schema": {
+                    "type": "object",
+                    "properties": {
+                        // "Id" : {
+                        //     "type": "object",
+                        //     "$ref": "#/definitions/Task"
+                        // },
+                        "Id":{},
+                        "Date":{},
+                        "Timestamp":{},
+                        "ImageTitle":{},
+                        "Description":{},
+                        "Author":{},
+                        "Picture":{}
+
+                    }
+                }
+            }
+        ]
+
     }
 }
 

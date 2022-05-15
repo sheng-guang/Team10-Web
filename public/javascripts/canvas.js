@@ -15,7 +15,7 @@ function initCanvas(sckt, imageUrl) {
     let roomNo = document.getElementById('roomNo').value;
     let userId = document.getElementById('name').value;
     let imgID= document.getElementById('image_url').innerHTML;
-    let description=document.getElementById('description1').value;
+    // let description=document.getElementById('description1').value;
 
     let flag = false,
         prevX, prevY, currX, currY = 0;

@@ -11,17 +11,10 @@ const chat = require('../controller/ChatController');
 const initDB= require('../controller/init');
 initDB.init();
 
-router.post('/upload',chat.insert,function (req,res,next){
-
-});
+router.post('/upload',chat.insert);
 
 
-router.post('/download', function(req, res, next){
-    res.setHeader('Content-Type','application/json');
-
-    res.json(chat.out);
-    }
-);
+router.post('/download', chat.out);
 
 
 module.exports = router;

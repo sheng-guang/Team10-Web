@@ -11,15 +11,15 @@ exports.insert = function (req, res) {
     }
     try{
         let chatModel= new ChatModel({
-            Id: userData.id,
-            Date: userData.date,
-            Timestamp: userData.timestamp,
-            ImageTitle: userData.title,
-            Description: userData.description,
-            Author: userData.author,
-            Picture: userData.picture
+            Id: userData.Id,
+            Date: userData.Date,
+            Timestamp: userData.Timestamp,
+            ImageTitle: userData.ImageTitle,
+            Description: userData.Description,
+            Author: userData.Author,
+            Picture: userData.Picture
         });
-        console.log('received: ' + chatModel);
+        console.log('received: ' + chatModel.Date);
 
         chatModel.save(function (err) {
             if (err) {
@@ -34,7 +34,9 @@ exports.insert = function (req, res) {
     }
 }
 exports.out =function (req,res){
-    let output=ChatModel.find();
-    res.setHeader('Content-Type', 'application/json');
-    res.send(JSON.stringify(output))
+     ChatModel.find().then(x=>{
+         res.setHeader('Content-Type', 'application/json');
+         res.send(JSON.stringify(x))
+    });
+
 }
