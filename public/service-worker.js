@@ -3,7 +3,6 @@ let dataCacheName = 'storyData-v1';
 let cacheName = 'storyPWA-step-8-1';
 let filesToCache = [
     '/',
-    '/stylesheets/acp21zo.css',
     '/stylesheets/style.css',
     '/javascripts/canvas.js'
 ];

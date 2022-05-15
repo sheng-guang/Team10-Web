@@ -6,24 +6,20 @@ exports.insert = function (req, res) {
         res.status(403).send('No data sent!')
     }
 
-    try{
-        let chatModel= new ChatModel({
-            ImageTitle: userData.title,
-            Description: userData.description,
-            Author: userData.author,
-        });
-        console.log('received: ' + chatModel);
 
-        chatModel.save(function (err) {
-            if (err) {
-                res.status(500).send('Invalid data');
-            }
-            console.log('Data send successfully');
+    let chatModel = new ChatModel({
+        ImageTitle: userData.title,
+        Description: userData.description,
+        Author: userData.author,
+    });
+    console.log('received: ' + chatModel);
 
-            res.setHeader('Content-Type', 'application/json');
-            res.send(JSON.stringify(chatModel))
-        });
-    } catch (e) {
-        res.status(500).send('Error: ' + e);
-    }
+    chatModel.save()
+        .then((results) => {
+            console.log(results._id);
+            res.json(chatModel);
+        })
+        .catch((error) => {
+            res.status(500).json('Data is not correct' + JSON.stringify(error));
+        })
 }

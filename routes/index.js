@@ -24,12 +24,7 @@ router.get('/new', function(req, res, next) {
   res.render('new', { title: 'Create story' });
 });
 
-router
-    .get('/insert', function(req, res, next) {
-      res.render('insert', {title: 'ChatModel Insertion Form'});
-    })
 
-    .post('/insert', chat.insert);
 
 
 

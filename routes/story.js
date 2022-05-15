@@ -32,4 +32,11 @@ router.get('/download', function(req, res, next){
     res.json(list);
     }
 );
+
+router
+    .get('/insert', function(req, res, next) {
+        res.render('insert', {title: 'ChatModel Insertion Form'});
+    })
+
+    .post('/insert', chat.insert);
 module.exports = router;

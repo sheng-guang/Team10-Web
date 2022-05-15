@@ -7,8 +7,8 @@ let Schema = mongoose.Schema;
 
 let ChatSchema = new Schema(
     {
-        ImageTitle:{type: String, max:20},//required true
-        Description:{type: String, max:100},//required true
+        ImageTitle:{type: String},
+        Description:{type: String},
         Author: {type:String},
 
     }

@@ -15,8 +15,6 @@ function initCanvas(sckt, imageUrl) {
     let roomNo = document.getElementById('roomNo').value;
     let userId = document.getElementById('name').value;
 
-
-    let RoomAndUrl = roomNo + '+' + imageUrl;
     let flag = false,
         prevX, prevY, currX, currY = 0;
     let canvas = $('#canvas');
