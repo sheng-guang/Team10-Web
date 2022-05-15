@@ -6,72 +6,12 @@
     <link rel='stylesheet' href='/stylesheets/style.css'/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="/javascripts/DataBase.js" type="module"></script>
+
     <script src="/javascripts/index.js"></script>
     <script src="/javascripts/canvas.js"></script>
-    <script src="/javascripts/story.js"></script>
-    <script>
-         async function addNewStory(ne){
-            console.log("new story "+ne);
-            return  await StoreStory(ne);
-            // all.push(ne);
-        }
-        function  getDate(){
-             let d=new Date();
-             var re=d.getFullYear()+"-"+d.getMonth()+"-"+d.getDay();
-             re+=" "+d.getHours()+":"+d.getMinutes();
-             console.log(re);
-            return re;
-        }
-        function send() {
-             var ne={}
-            ne.title=document.getElementById("title1").value;
-            ne.picture=document.getElementById("img").src;
-            ne.description=document.getElementById("description1").value;
-            ne.author=document.getElementById("author1").value;
-            ne.date=getDate()
-            ne.t= Date.parse(new Date());
-            console.log(ne.date);
-            console.log(ne.t);
-            addNewStory(ne).then(x=>{
-                // ToHomePage();
-            })
-            .finally(()=>{
-                ToHomePage();
-            });
+    <script src="/javascripts/axios.js"></script>
+    <script src="/javascripts/SendStory.js"></script>
 
-        }
-        function  SendToServer(title,picture,description,author){
-            axios.get('/upload', {
-                params: {
-                    "title": title,
-                    "description":description,
-                    "author":author
-                }
-            }) .then(response=> {
-                console.log("===success  "+response)
-            }) .catch(error=> {
-                console.log("===error   "+error)
-            });
-        }
-        function ToHomePage(){
-            location.href="http://localhost:3000"
-        }
-        function imgChange(event){
-            console.log(event.target.files)
-            var file = event.target.files[0];
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                console.log(e.target.result);
-                if ((e.target.result).includes('image'))
-                {
-                    document.getElementById("img").src=e.target.result;
-                }
-            }
-            if (file) {
-                reader.readAsDataURL(file);
-            }
-        }
-    </script>
 </head>
 <body onload="init()">
 <div id="initial_form" style="display: block">
@@ -95,7 +35,7 @@
     </p>
 
     <p>
-        <input type="submit" onclick="send()" value="Submit" id="upload3">
+        <input type="submit"  value="Submit" id="upload3" onclick="send()">
     </p>
 <div style="width: 100%;height: 500px">
     <img id="img" src="" height="100%">

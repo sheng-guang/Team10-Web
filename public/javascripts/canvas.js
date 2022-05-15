@@ -14,6 +14,7 @@ function initCanvas(sckt, imageUrl) {
 
     let roomNo = document.getElementById('roomNo').value;
     let userId = document.getElementById('name').value;
+    let imgID= document.getElementById('image_url').innerHTML;
 
     let flag = false,
         prevX, prevY, currX, currY = 0;
@@ -56,7 +57,7 @@ function initCanvas(sckt, imageUrl) {
 
     });
     function loadDrawHis(ctx,canvas){
-        RoomGet(userId,roomNo,"line").then(x=>{
+        RoomGet(userId,roomNo+"|"+imgID,"line").then(x=>{
             console.log("re draw"+x.length);
             x.forEach(xx=>{
                 try {
@@ -76,7 +77,7 @@ function initCanvas(sckt, imageUrl) {
 
         params={Room:Room,from:from,width:width,height:height,
             prevX:prevX,prevY:prevY,currX:currX,currY:currY,color:color,thickness:thickness};
-        RoomStore(userId,roomNo,"line",params);
+        RoomStore(userId,roomNo+"|"+imgID,"line",params);
 
         drawOnCanvas(ctx, canvas.width, canvas.height, prevX, prevY, currX, currY, color, thickness);
     });
