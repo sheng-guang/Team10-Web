@@ -16,10 +16,10 @@ router.post('/upload',chat.insert,function (req,res,next){
 });
 
 
-router.get('/download', function(req, res, next){
+router.post('/download', function(req, res, next){
     res.setHeader('Content-Type','application/json');
 
-    res.json(list);
+    res.json(chat.out);
     }
 );
 

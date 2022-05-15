@@ -14,20 +14,19 @@ const api= 'AIzaSyAG7w627q-djB4gTTahssufwNOImRqdYKM';
 function init() {
     // it sets up the interface so that userId and room are selected
     document.getElementById('initial_form').style.display = 'block';
-    // document.getElementById('chat_interface').style.display = 'none';
 
     //@todo here is where you should initialise the socket operations as described in teh lectures (room joining, chat message receipt etc.)
     socket.on('joined', function (room, userId){
 
         if (userId === name){
-            //it enters the chat
+
             hideLoginInterface(room, userId);
         } else {
-            //notifies that someone has joined the room
+
             writeOnHistory('<b>' + userId + '</b>' + ' joined room ' + room);
         }
     });
-    //called when a message is received
+
     socket.on('chat', function (room, userId, chatText){
         let people = userId
         if(userId == name) people = 'Me ';
@@ -48,7 +47,7 @@ function init() {
 
 
 
-
+/**the format to show knowledge graph */
 function showgraph(title, Id, description, url,dont_store){
     if(!dont_store) {
         var to={title:title,id:Id,description:description,url:url}
@@ -116,9 +115,11 @@ function generateRoom() {
 
 function sendChatText() {
     let chatText = document.getElementById('chat_input').value;
-    socket.emit('chat', roomNo, name, chatText);
+
 
     // @todo send the chat message
+
+    socket.emit('chat', roomNo, name, chatText);
 }
 
 function connectToRoom() {
@@ -157,11 +158,11 @@ function writeOnHistory(text,dont_store) {
     let paragraph = document.createElement('p');
     paragraph.innerHTML = text;
     history.appendChild(paragraph);
-    // scroll to the last element
+
 
     document.getElementById('chat_input').value = '';
 }
-//back to the page
+//back to the homepage
 function back()
 {
     window.location.href="/"

@@ -30,3 +30,8 @@ exports.insert = function (req, res) {
         res.status(500).send('Error: ' + e);
     }
 }
+exports.out =function (req,res){
+    let output=ChatModel.find();
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify(output))
+}
