@@ -34,9 +34,9 @@ router.get('/download', function(req, res, next){
 );
 
 router
-    .get('/insert', function(req, res, next) {
-        res.render('insert', {title: 'ChatModel Insertion Form'});
+    .get('/story', function(req, res, next) {
+        res.render('story', {title: 'ChatModel Insertion Form'});
     })
 
-    .post('/insert', chat.insert);
+    .post('/story', chat.insert);
 module.exports = router;
