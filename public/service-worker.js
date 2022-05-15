@@ -50,37 +50,4 @@ self.addEventListener('fetch', function (e) {
             return caches.match(e.request);
         })
     )
-    // if (e.request.url.indexOf(dataUrl) > -1) {
-    //     /*
-    //      * "Cache then network" strategy
-    //      */
-    //     return fetch(e.request)
-    //         .then( (response) => {
-    //             return response;
-    //         })
-    //         .catch((error) => {
-    //             return error;
-    //         })
-    // } else {
-    //     /*
-    //      * "Cache, falling back to the network" offline strategy
-    //      */
-    //     e.respondWith(
-    //         caches.match(e.request).then(function (response) {
-    //             return response
-    //                 || fetch(e.request)
-    //                     .then(function (response) {
-    //                         if (!response.ok ||  response.statusCode>299) {
-    //                             console.log("error: " + response.error());
-    //                         } else {
-    //                             cache.add(e.request.url);
-    //                             return response;
-    //                         }
-    //                     })
-    //                     .catch(function (err) {
-    //                         console.log("error: " + err);
-    //                     })
-    //         })
-    //     );
-    // }
 });
