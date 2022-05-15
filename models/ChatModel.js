@@ -8,10 +8,13 @@ let Schema = mongoose.Schema;
 
 let ChatSchema = new Schema(
     {
+        Id:{type:Number},
+        Date: {type:String},
+        Timestamp:{type:Number},
         ImageTitle:{type: String},
         Description:{type: String},
         Author: {type:String},
-        Index:{type:String}
+        Picture: {type:String}
     }
 );
 
