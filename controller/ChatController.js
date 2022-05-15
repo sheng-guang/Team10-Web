@@ -11,10 +11,13 @@ exports.insert = function (req, res) {
     }
     try{
         let chatModel= new ChatModel({
+            Id: userData.id,
+            Date: userData.date,
+            Timestamp: userData.timestamp,
             ImageTitle: userData.title,
             Description: userData.description,
             Author: userData.author,
-            Index: userData.index
+            Picture: userData.picture
         });
         console.log('received: ' + chatModel);
 
