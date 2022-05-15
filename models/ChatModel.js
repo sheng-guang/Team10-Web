@@ -1,7 +1,9 @@
+/**
+ * MongoDB - Chat Model
+ *
+ * @author  Yanan Zhao
+ */
 let mongoose = require('../database/ChatDatabase');
-
-
-
 let Schema = mongoose.Schema;
 
 let ChatSchema = new Schema(
@@ -12,7 +14,6 @@ let ChatSchema = new Schema(
         Index:{type:String}
     }
 );
-
 
 module.exports = mongoose.model('Chat',ChatSchema,'chat');
 

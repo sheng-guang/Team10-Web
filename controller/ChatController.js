@@ -1,3 +1,8 @@
+/**
+ * MongoDB - Chat Controller
+ *
+ * @author  Yanan Zhao
+ */
 let ChatModel = require('../models/ChatModel');
 exports.insert = function (req, res) {
     let userData = req.body;
