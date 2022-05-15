@@ -29,7 +29,7 @@ router
       res.render('insert', {title: 'ChatModel Insertion Form'});
     })
 
-    .post('/insert', chatModel.insert);
+    .post('/insert', chat.insert);
 
 
 

@@ -1,5 +1,8 @@
 let mongoose = require('../database/ChatDatabase');
 
+const mongoose = require('../database/ChatDatabase');
+
+
 let Schema = mongoose.Schema;
 
 let ChatSchema = new Schema(
@@ -11,4 +14,6 @@ let ChatSchema = new Schema(
     }
 );
 
+
 module.exports = mongoose.model('Chat',ChatSchema,'chat');
+
