@@ -61,7 +61,7 @@ function showgraph(title, Id, description, url,dont_store){
     graph.innerHTML = '<h2>' + title + '</h2>' +
         '<h3>' + Id + '</h3>' +
         '<div>' + description + '</div><div><a href='+ url + '>Link to Webpage</a></div>';
-
+    pos.appendChild(graph)
     pos.style.display = 'block';
 
 
