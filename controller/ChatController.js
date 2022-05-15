@@ -1,14 +1,11 @@
 let ChatModel = require('../models/ChatModel');
-
 exports.insert = function (req, res) {
     let userData = req.body;
     if (userData == null) {
         res.status(403).send('No data sent!')
     }
-
-
-    
-        let chatModel = new ChatModel({
+    try{
+        let chatModel= new ChatModel({
             ImageTitle: userData.title,
             Description: userData.description,
             Author: userData.author,
@@ -16,13 +13,15 @@ exports.insert = function (req, res) {
         });
         console.log('received: ' + chatModel);
 
-
-        chatModel.save()
-            .then((results) => {
-                console.log(results._id);
-                res.json(chatModel);
-            })
-            .catch((error) => {
-                res.status(500).json('Data is not correct' + JSON.stringify(error));
-            })
+        chatModel.save(function (err) {
+            if (err) {
+                res.status(500).send('Invalid data');
+            }
+            console.log('Data send successfully');
+            res.setHeader('Content-Type', 'application/json');
+            res.send(JSON.stringify(chatModel))
+        });
+    } catch (e) {
+        res.status(500).send('Error: ' + e);
     }
+}
