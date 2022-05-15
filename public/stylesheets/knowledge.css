@@ -1,0 +1,25 @@
+body {
+    padding: 50px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+    color: #00B7FF;
+}
+
+.kge-search-picker {
+    width: 50px;
+}
+
+.myRow {
+    display:inline-block;
+}
+
+div{
+    margin-top: 10px;
+}
+
+.resultPanel{
+    border: dotted gray 1px;
+    padding:10px
+}

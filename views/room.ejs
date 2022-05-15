@@ -5,7 +5,7 @@
     <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/knowledge/kgsearch/widget/1.0/widget.min.css">
     <script type="text/javascript" src="https://www.gstatic.com/knowledge/kgsearch/widget/1.0/widget.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
-    <link rel='stylesheet' href='/stylesheets/acp21zo.css'/>
+    <link rel='stylesheet' href='/stylesheets/knowledge.css'/>
     <script src="/javascripts/jqury.js"></script>
     <script src="/javascripts/DataBase.js" type="module"></script>
     <script src="/javascripts/index.js"></script>
@@ -20,7 +20,7 @@
 <div id="initial_form" style="display: block">
     <div id="connect-room">
             <h1><%= title %></h1>
-            <h3 id="hint">Please insert the id of the Room you want to Join, if you do not have a room id, click Generate Room</h3>
+            <p>Please insert the id of the Room you want to Join, if you do not have a room id, click Generate Room</p>
             <form onsubmit="return false;">
             <p><label for="name"> Your name </label>
                 <input type="text" id="name" name="name">
@@ -30,11 +30,10 @@
                 <input type="text" id="roomNo" name="roomNo">
                 <button id="roomNoGenerator" onclick="generateRoom()">Generate Room</button>
             </p>
-            <p style=" width: 100%">
-                <label for="image_url"> Image (URL) </label>
+            <p style=" width: 100%"><label for="image_url"> Image (URL) </label>
                 <label id="image_url"><%= img %></label>
             </p>
-            <div class="btdiv">
+            <div>
                 <button id="connect" onclick="connectToRoom()">Connect</button>
             </div>
 
@@ -52,7 +51,7 @@
         <canvas  id="canvas" ></canvas>
     </div>
 
-    <h2 style="float: left">Description:</h2>
+
 
 
     <!-- knowledge graph -->
@@ -68,22 +67,27 @@
         <div class="myRow" id="typeSet"></div>
     </div>
     <div>
-        <div  id="show_graph" style="float:right">
-
+        <div class='resultPanel' id="show_graph" style="display: none">
+            <h3 id="resultName"></h3>
+            <h4 id="resultId"></h4>
+            <div id="resultDescription"></div>
+            <div>
+                <a id="resultUrl" target="_blank">
+                    Link to Webpage
+                </a>
+            </div>
         </div>
-
     </div>
-
 
 
     <div id="history"  class="boxed scrolling" ></div>
 
-    <div id="input" style="height: 5vh" class=" boxed">
-        <form onsubmit="return false;" style="width: 100%">
+    <div id="input" class=" boxed">
+        <form onsubmit="return false;">
             <p>
-                <label for="name"> chat: </label>
+                <label for="name"> Text: </label>
                 <input type="text" id="chat_input" name="chat_input" style="width: 50%">
-                <button id="chat_send" onclick="sendChatText()">Send</button>
+                <button id="chat_send" onclick="sendChatText()">Send message</button>
                 <button id="Back" onclick="back()">Back to the homepage</button>
             </p>
         </form>
