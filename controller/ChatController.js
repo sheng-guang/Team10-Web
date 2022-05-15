@@ -21,7 +21,7 @@ exports.insert = function (req, res) {
             console.log('Data send successfully');
 
             res.setHeader('Content-Type', 'application/json');
-            res.send(JSON.stringify(chat))
+            res.send(JSON.stringify(chatModel))
         });
     } catch (e) {
         res.status(500).send('Error: ' + e);
