@@ -49,15 +49,22 @@ function init() {
 
 
 
-function showgraph(name, Id, description, url){
-    let pos = document.getElementById('showgraph');
+function showgraph(title, Id, description, url,dont_store){
+    if(!dont_store) {
+        var to={title:title,id:Id,description:description,url:url}
+        console.log(to);
+        RoomStore(name,roomNo,"graph",to);
+    }
+    let pos = document.getElementById('show_graph');
     let graph = document.createElement('div');
-    graph.className = 'showgraph';
-    graph.innerHTML = '<h2>' + name + '</h2>' +
+    graph.className = 'show_graph';
+    graph.innerHTML = '<h2>' + title + '</h2>' +
         '<h3>' + Id + '</h3>' +
         '<div>' + description + '</div><div><a href='+ url + '>the link</a></div>';
     pos.appendChild(graph);
     pos.style.display = 'block';
+
+
 }
 /** method to search knowledge graph */
 function widgetInit(){
@@ -118,12 +125,22 @@ function connectToRoom() {
     roomNo = document.getElementById('roomNo').value;
     name = document.getElementById('name').value;
     let imageUrl= document.getElementById('image_url').innerHTML;
+    imageUrl=localStorage.getItem(imageUrl);
     if (!name) name = 'Unknown-' + Math.random();
     //@todo join the room
     socket.emit('create or join',roomNo,name);
     initCanvas(socket, imageUrl);
     hideLoginInterface(roomNo, name);
     loadHistory()
+    loadGraph()
+}
+function  loadGraph(){
+    RoomGet(name,roomNo,"graph").then(x=>{
+        x.forEach(xx=>{
+            console.log(xx);
+            showgraph(xx.title,xx.id,xx.description,xx.url,true);
+        })
+    })
 }
 function loadHistory(){
     RoomGet(name,roomNo,"t").then(x=>{

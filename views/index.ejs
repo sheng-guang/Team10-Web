@@ -38,7 +38,14 @@
     </style>
     <script>
         function ToNewPage(i){
-            location.href="http://localhost:3000/room?"+"img="+i
+            GetOneStory(i).then(x=>{
+                console.log(x);
+                if(!x)throw i+" no found";
+                localStorage.setItem(i,x.picture);
+                location.href="http://localhost:3000/room?"+"img="+i
+            }).catch(x=>{
+                alert(x);
+            })
         }
         var sortName='author ^';
         var authorColomName='author ^';
@@ -128,8 +135,9 @@
                         //description
                         html+=th(datas[i].description,"description");
 
+                        let to= '"'+datas[i].id+'"';
                         //join
-                        let func='\''+'ToNewPage('+picture+')'+'\'';
+                        let func='\''+'ToNewPage('+to+')'+'\'';
                         html+=th('<button  style="font-size: 21px; width: 100%; height: 200px;"  onClick='+func+'> join room </button>');
 
                         html+="</tr>"

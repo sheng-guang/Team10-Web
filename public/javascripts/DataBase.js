@@ -64,14 +64,23 @@ window.GetAllStory=async function GetAllStory(){
         let tx = await db.transaction(stories, 'readonly');
         let store = await tx.objectStore(stories);
         let all=  store.getAll();
-        // console.log("================================get all  ");
-        // console.log(all);
-        // console.log("get all  ================================");
         return all;
     } catch(error) {
         console.log('error: I could not store the element. Reason: '+error);
     }
-
+}
+window.GetOneStory=async function(i){
+    i=parseInt(i);
+    console.log("get story "+i+typeof (i));
+    await initDatabase(stories);
+    if(!db)return;
+    try{
+        let tx = await db.transaction(stories, 'readonly');
+        let store = await tx.objectStore(stories);
+        return  store.get(i);
+    } catch(error) {
+        console.log('error: I could not get the element. Reason: '+error);
+    }
 }
 
 window.RoomStore=async  function RoomStore(username,room,kind,v){
