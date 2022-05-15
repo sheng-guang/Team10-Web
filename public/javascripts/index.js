@@ -16,14 +16,14 @@ function init() {
     document.getElementById('initial_form').style.display = 'block';
 
     //@todo here is where you should initialise the socket operations as described in teh lectures (room joining, chat message receipt etc.)
-    socket.on('joined', function (room, userId){
+    socket.on('joined room', function (room, userId){
 
-        if (userId === name){
+        if (userId == name){
 
             hideLoginInterface(room, userId);
         } else {
 
-            writeOnHistory('<b>' + userId + '</b>' + ' joined room ' + room);
+            writeOnHistory('<p>' + userId + '</p>' + ' joined ' + room);
         }
     });
 

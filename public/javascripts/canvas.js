@@ -15,6 +15,7 @@ function initCanvas(sckt, imageUrl) {
     let roomNo = document.getElementById('roomNo').value;
     let userId = document.getElementById('name').value;
     let imgID= document.getElementById('image_url').innerHTML;
+    let description=document.getElementById('description1').value;
 
     let flag = false,
         prevX, prevY, currX, currY = 0;
@@ -54,7 +55,7 @@ function initCanvas(sckt, imageUrl) {
         let c_height = canvas.height();
         ctx.clearRect(0, 0, c_width, c_height);
         // @todo if you clear the canvas, you want to let everyone know via socket.io (socket.emit...)
-
+        socket.emit('knowledge graph', roomNo, name, id, description, url);
     });
     function loadDrawHis(ctx,canvas){
         RoomGet(userId,roomNo+"|"+imgID,"line").then(x=>{
