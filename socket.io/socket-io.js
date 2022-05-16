@@ -1,5 +1,7 @@
 exports.init = function(io) {
-  io.sockets.on('connection', function (socket) {
+  const chat= io
+      .of('/chat')
+      .on('connection', function (socket) {
     try {
 
 
@@ -10,11 +12,11 @@ exports.init = function(io) {
 
       socket.on('create or join', function (room, userId) {
         socket.join(room);
-        io.sockets.to(room).emit('joined', room, userId);
+        chat.to(room).emit('joined', room, userId);
       });
 
       socket.on('chat', function (room, userId, chatText) {
-        io.sockets.to(room).emit('chat', room, userId, chatText);
+        chat.to(room).emit('chat', room, userId, chatText);
       });
 
       socket.on('disconnect', function(){
@@ -22,13 +24,14 @@ exports.init = function(io) {
       });
 
       socket.on('draw', function (room, userId, width, height,prevX,prevY,currX,currY,color,thickness) {
-        io.sockets.to(room).emit('draw', room, userId, width, height,prevX,prevY,currX,currY,color,thickness);
+        socket.broadcast.to(room).emit('draw', room, userId, width, height,prevX,prevY,currX,currY,color,thickness);
       });
 
       socket.on('knowledge graph', function (room, name, id, description, url) {
         socket.broadcast.to(room).emit('knowledge graph', room, name, id, description, url);
       });
-    }catch (e) {
+    }
+    catch (e) {
     }
   });
 }
