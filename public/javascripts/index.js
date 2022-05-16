@@ -2,7 +2,7 @@ let name = null;
 let roomNo = null;
 let socket=io();
 const service_url = 'https://kgsearch.googleapis.com/v1/entities:search';
-const api= 'AIzaSyAG7w627q-djB4gTTahssufwNOImRqdYKM';
+const apiKey= 'AIzaSyAG7w627q-djB4gTTahssufwNOImRqdYKM';
 
 
 /**
@@ -19,20 +19,17 @@ function init() {
     socket.on('joined room', function (room, userId){
 
         if (userId == name){
-
             hideLoginInterface(room, userId);
         } else {
-
             writeOnHistory('<p>' + userId + '</p>' + ' joined ' + room);
         }
     });
 
     socket.on('chat', function (room, userId, chatText){
         let people = userId
-        if(userId == name) people = 'Me ';
-        writeOnHistory('<b>' + people + ':</b> ' + chatText);
+        if (userId == name) {
+        writeOnHistory('<p>' + people + ':</p> ' + chatText);}
     });
-
     socket.on('knowledge graph', function(name, id, description, url){
         showgraph(name,id,description,url).then(r=>{})
     });
@@ -57,9 +54,8 @@ function showgraph(title, Id, description, url,dont_store){
     let pos = document.getElementById('show_graph');
     let graph = document.createElement('div');
     graph.className = 'show_graph';
-    graph.innerHTML = '<h2>' + title + '</h2>' +
-        '<h3>' + Id + '</h3>' +
-        '<div>' + description + '</div><div><a href='+ url + '>Link to Webpage</a></div>';
+    graph.innerHTML = '<div><h2>' + title + '</h2></div>' + '<div>' + Id + '</div>' +
+        '<h3>' + description + '</h3><div><a href='+ url + '>Link to Webpage</a></div>';
     pos.appendChild(graph)
     pos.style.display = 'block';
 
@@ -77,7 +73,7 @@ function widgetInit(){
             'selectHandler': selectItem,
         }
 
-        KGSearchWidget(api, document.getElementById("myInput"), config);
+        KGSearchWidget(apiKey, document.getElementById("myInput"), config);
         document.getElementById('typeSet').innerHTML= 'of type: '+type;
         document.getElementById('widget').style.display='block';
         document.getElementById('typeForm').style.display= 'none';
@@ -94,7 +90,6 @@ function widgetInit(){
 
 function selectItem(event) {
     let row = event.row;
-
     document.getElementById('resultId').innerText= 'id: '+row.id;
     document.getElementById('resultName').innerText= row.name;
     document.getElementById('resultDescription').innerText= row.rc;
@@ -153,13 +148,11 @@ function loadHistory(){
 
 function writeOnHistory(text,dont_store) {
     if(!dont_store)RoomStore(name,roomNo,"t",{text:text});
-
     let history = document.getElementById('history');
     let paragraph = document.createElement('p');
     paragraph.innerHTML = text;
     history.appendChild(paragraph);
-
-
+    history.scrollTop = history.scrollHeight;
     document.getElementById('chat_input').value = '';
 }
 //back to the homepage
