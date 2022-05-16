@@ -25,29 +25,27 @@ paths['/story/upload']={
         },
         parameters:[
             {
-                "in": "body",
-                "name": "body",
-                "description": "task object",
+                "name": "petId",
+                "in": "path",
+                "description": "ID of pet that needs to be updated",
                 "required": true,
-                "schema": {
-                    "type": "object",
-                    "properties": {
-                        // "Id" : {
-                        //     "type": "object",
-                        //     "$ref": "#/definitions/Task"
-                        // },
-                        "Id":{},
-                        "Date":{},
-                        "Timestamp":{},
-                        "ImageTitle":{},
-                        "Description":{},
-                        "Author":{},
-                        "Picture":{}
-
-                    }
-                }
+                "type": "string"
+            },
+            {
+                "name": "name",
+                "in": "formData",
+                "description": "Updated name of the pet",
+                "required": false,
+                "type": "string"
+            },
+            {
+                "name": "status",
+                "in": "formData",
+                "description": "Updated status of the pet",
+                "required": false,
+                "type": "string"
             }
-        ]
+        ],
 
     }
 }

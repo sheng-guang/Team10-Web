@@ -6,6 +6,7 @@
 let ChatModel = require('../models/ChatModel');
 exports.insert = function (req, res) {
     let userData = req.body;
+    console.log(userData);
     if (userData == null) {
         res.status(403).send('No data sent!')
     }
