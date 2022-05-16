@@ -4,6 +4,44 @@ const server1={
     description: 'Local server'
 }
 
+
+story= {
+
+    "properties": {
+        "Id": {
+            "type": "integer",
+            "format": "int64"
+        },
+        "Date": {
+            "type": "string",
+            "example": "123"
+        },
+        "Timestamp": {
+            "type": "string",
+            "example": "123"
+        },
+        "ImageTitle": {
+            "type": "string",
+            "example": "123"
+        },
+        "Description": {
+            "type": "string",
+            "example": "123"
+        },
+        "Author": {
+            "type": "string",
+            "example": "123"
+        },
+        "Picture": {
+            "type": "string",
+            "example": "123"
+        },
+    },
+    "xml": {
+        "name": "Pet"
+    }
+}
+
 paths['/story/download']={
     post: {
         summary:"get all stories",
@@ -23,29 +61,16 @@ paths['/story/upload']={
                 description:"success"
             }
         },
-        parameters:[
-            {
-                "name": "petId",
-                "in": "path",
-                "description": "ID of pet that needs to be updated",
-                "required": true,
-                "type": "string"
-            },
-            {
-                "name": "name",
-                "in": "formData",
-                "description": "Updated name of the pet",
-                "required": false,
-                "type": "string"
-            },
-            {
-                "name": "status",
-                "in": "formData",
-                "description": "Updated status of the pet",
-                "required": false,
-                "type": "string"
+        requestBody:{
+            required: true,
+            content:{
+                "application/json":{
+                    "schema":story
+                }
             }
-        ],
+        },
+
+
 
     }
 }
