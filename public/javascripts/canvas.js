@@ -6,7 +6,7 @@ var lineKey=null;
 /**
  * it inits the image canvas to draw on. It sets up the events to respond to (click, mouse on, etc.)
  * it is also the place where the data should be sent  via socket.io
- * @param sckt the open socket to register events on
+ * @param sckt the open socket.io to register events on
  * @param imageUrl teh image url to download
  */
 function initCanvas(sckt, imageUrl) {
@@ -43,7 +43,7 @@ function initCanvas(sckt, imageUrl) {
         if (e.type === 'mousemove') {
             if (flag) {
                 drawOnCanvas(ctx, canvas.width, canvas.height, prevX, prevY, currX, currY, color, thickness);
-                // @todo if you draw on the canvas, you may want to let everyone know via socket.io (socket.emit...)  by sending them
+                // @todo if you draw on the canvas, you may want to let everyone know via socket.io (socket.io.emit...)  by sending them
                 socket.emit('draw',roomNo,userId,canvas.width,canvas.height,prevX,prevY,currX,currY,color,thickness);
                 // room, userId, canvas.width, canvas.height, prevX, prevY, currX, currY, color, thickness
             }
@@ -56,7 +56,7 @@ function initCanvas(sckt, imageUrl) {
         let c_width = canvas.width();
         let c_height = canvas.height();
         ctx.clearRect(0, 0, c_width, c_height);
-        // @todo if you clear the canvas, you want to let everyone know via socket.io (socket.emit...)
+        // @todo if you clear the canvas, you want to let everyone know via socket.io (socket.io.emit...)
         socket.emit('knowledge graph', roomNo, name, id, description, url);
     });
     function loadDrawHis(ctx,canvas){
@@ -75,7 +75,7 @@ function initCanvas(sckt, imageUrl) {
 
         })
     }
-    // @todo here you want to capture the event on the socket when someone else is drawing on their canvas (socket.on...)
+    // @todo here you want to capture the event on the socket.io when someone else is drawing on their canvas (socket.io.on...)
     socket.on('draw',function(Room, from, width,height ,prevX, prevY, currX, currY,color, thickness) {
 
 

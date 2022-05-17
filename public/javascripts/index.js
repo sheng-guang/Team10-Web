@@ -8,7 +8,7 @@ const apiKey= 'AIzaSyAG7w627q-djB4gTTahssufwNOImRqdYKM';
 
 /**
  * called by <body onload>
- * it initialises the interface and the expected socket messages
+ * it initialises the interface and the expected socket.io messages
  * plus the associated actions
  */
 
@@ -16,20 +16,21 @@ function init() {
     // it sets up the interface so that userId and room are selected
     document.getElementById('initial_form').style.display = 'block';
 
-    //@todo here is where you should initialise the socket operations as described in teh lectures (room joining, chat message receipt etc.)
+    //@todo here is where you should initialise the socket.io operations as described in teh lectures (room joining, chat message receipt etc.)
     socket.on('joined room', function (room, userId){
 
         if (userId == name){
             hideLoginInterface(room, userId);
         } else {
-            writeOnHistory('<p>' + userId + '</p>' + ' joined ' + room);
+            writeOnHistory('<b>' + userId + '</b>' + ' joined ' + room);
         }
     });
 
     socket.on('chat', function (room, userId, chatText){
         console.log("getChatTXT()");
         let people = userId
-        if (userId == name) {
+        if (userId == name) return;
+        {
         writeOnHistory('<b>' + people + ':</b> ' + chatText);
         }
     });
@@ -114,7 +115,7 @@ function generateRoom() {
 function sendChatText() {
     let chatText = document.getElementById('chat_input').value;
 
-
+    writeOnHistory('<b>' + name + ':</b> ' + chatText);
     // @todo send the chat message
     console.log("sendChatText()");
     socket.emit('chat', roomNo, name, chatText);

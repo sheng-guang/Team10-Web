@@ -20,9 +20,11 @@ let filesToCache = [
     '/javascripts/axios.js',
     '/javascripts/SendStory.js',
     '/javascripts/SyncDB.js',
+    '/socket.io.js',
     '/javascripts/socket.io.js',
     '/socket.io/socket.io.js',
     '/javascripts/socket-io.js',
+
     '/stylesheets/css1.css',
     '/stylesheets/style.css',
     '/stylesheets/knowledge.css',
@@ -32,6 +34,8 @@ let filesToCache = [
  * installation event: it adds all the files to be cached
  */
 self.addEventListener('install', function (e) {
+
+
     console.log('[ServiceWorker] Install');
     e.waitUntil(
         caches.open(cacheName).then(function (cacheX) {
@@ -71,7 +75,7 @@ self.addEventListener('activate', function (e) {
  * called every time a page is fetched by the browser
  */
 self.addEventListener('fetch', function (e) {
-    
+
     console.log('[Service Worker] Fetch', e.request.url);
     e.respondWith(
         fetch(e.request).catch(function () {
