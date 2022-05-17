@@ -3,7 +3,8 @@
 <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css'/>
-    <script src="/socket.io/socket.io.js"></script>
+<!--    <script src="/socket.io/socket.io.js"></script>-->
+    <script src="/javascripts/socket.io.js"></script>
 
     <script src="/javascripts/jqury.js"></script>
     <script src="/javascripts/DataBase.js" type="module"></script>
@@ -45,7 +46,8 @@
                 console.log(x);
                 if(!x)throw i+" no found";
                 localStorage.setItem(i,x.Picture);
-                location.href="http://localhost:3000/room?"+"img="+i
+                localStorage.setItem("room img ID",i);
+                location.href="http://localhost:3000/room";
             }).catch(x=>{
                 alert(x);
             })

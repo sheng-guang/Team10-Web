@@ -6,7 +6,8 @@
 
     <script type="text/javascript" src="/javascripts/js1.js"></script>
 
-    <script src="/socket.io/socket.io.js"></script>
+<!--    <script src="/socket.io/socket.io.js"></script>-->
+    <script src="/javascripts/socket.io.js"></script>
 
 
     <link rel='stylesheet' href='/stylesheets/knowledge.css'/>
@@ -21,6 +22,9 @@
 </head>
 <body onload="init()">
 
+
+
+
 <div id="initial_form" style="display: block">
     <div id="connect-room">
             <h1><%= title %></h1>
@@ -34,8 +38,9 @@
                 <input type="text" id="roomNo" name="roomNo">
                 <button id="roomNoGenerator" onclick="generateRoom()">Generate Room</button>
             </p>
-            <p style=" width: 100%"><label for="image_url"> Image (ID) </label>
-                <label id="image_url"><%= img %></label>
+            <p style=" width: 100%">
+                <label for="image_url"> Image (ID) </label>
+                <label id="image_url" ></label>
             </p>
             <div>
                 <button id="connect" onclick="connectToRoom()">Connect</button>
@@ -56,7 +61,13 @@
     </div>
 
 
+    <script>
+        var to= localStorage.getItem("room img ID");
+        console.log(to);
+        var node= document.getElementById("image_url");
 
+        node.innerHTML  =to;
+    </script>
 
     <!-- knowledge graph -->
 

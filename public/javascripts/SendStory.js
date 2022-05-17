@@ -1,4 +1,3 @@
-console.log("123");
 
 function  getDate(){
     let d=new Date();
@@ -54,5 +53,4 @@ function imgChange(event){
         reader.readAsDataURL(file);
     }
 }
-console.log("123");
 // document.getElementById("upload3").onclick="send()";
