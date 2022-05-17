@@ -1,0 +1,1 @@
+The first demonstration is operated with WebStorm running, and the second demonstration is to turn off WebStorm and make the web page run in offline mode. The web allows you to create stories, sort stories, add rooms, chat, and comments, and make the former chat invisible to users who join later
