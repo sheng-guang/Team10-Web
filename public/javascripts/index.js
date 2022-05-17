@@ -126,6 +126,10 @@ function connectToRoom() {
     name = document.getElementById('name').value;
     imgID= document.getElementById('image_url').innerHTML;
     let imageUrl=localStorage.getItem(imgID);
+    document.getElementById("description").innerHTML=localStorage.getItem("description");
+document.getElementById("title").innerHTML=
+    localStorage.getItem("ImageTitle")+" -by- "+ localStorage.getItem("Author")+"  -on- "+
+    localStorage.getItem("Date")
     if (!name) name = 'Unknown-' + Math.random();
     //@todo join the room
     socket.emit('create or join',roomNo,name);

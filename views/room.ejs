@@ -50,6 +50,7 @@
     </div>
 
 </div>
+<label id="title"></label>
 <div id="chat_interface" style="display: none">
     <div>
         <p><div id="who_you_are" style="display: inline" style="height: 10vh"></div>, you are in room: <div id="in_room" style="display: inline"></div>
@@ -59,13 +60,12 @@
         <img id="image" height="100%" >
         <canvas  id="canvas" ></canvas>
     </div>
-
+<label id="description"></label>
 
     <script>
         var to= localStorage.getItem("room img ID");
         console.log(to);
         var node= document.getElementById("image_url");
-
         node.innerHTML  =to;
     </script>
 

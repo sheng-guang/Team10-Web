@@ -47,6 +47,12 @@
                 if(!x)throw i+" no found";
                 localStorage.setItem(i,x.Picture);
                 localStorage.setItem("room img ID",i);
+                localStorage.setItem("description",x.Description);
+                localStorage.setItem("ImageTitle",x.ImageTitle);
+                localStorage.setItem("Author",x.Author);
+                localStorage.setItem("Date",x.Date);
+
+
                 location.href="http://localhost:3000/room";
             }).catch(x=>{
                 alert(x);
