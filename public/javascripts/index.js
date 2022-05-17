@@ -35,7 +35,8 @@ function init() {
     });
     socket.on('knowledge graph', function(room,n,title, id, description, url){
         if(name==n)return;
-        showgraph(title,id,description,url)
+        console.log(room,n,title,id,description[0],description[1]);
+        showgraph(title,id,description[0],description[1]);
     });
 
 
@@ -101,7 +102,8 @@ function selectItem(event) {
     // document.getElementById('show_graph').style.display= 'block';
     // document.getElementById('roomNo').value=roomNo;
     showgraph(row.name, row.id, row.rc, row.qc);
-    socket.emit('knowledge graph', roomNo,name, row.name, row.id, row.rc, row.qc);
+    console.log(row.qc);
+    socket.emit('knowledge graph', roomNo,name, row.name, row.id, [row.rc, row.qc]);
 }
 
 
