@@ -8,7 +8,13 @@ let dataCacheName = 'storyData-v1';
 let cacheName = 'storyPWA-step-8-1';
 let filesToCache = [
     '/',
+    //'/socket.io/socket-io.js',
     '/stylesheets/style.css',
+    '/javascripts/jqury.js',
+    '/javascripts/story.js',
+    '/javascripts/index.js',
+    '/javascripts/DataBase.js',
+    '/javascripts/idb.js',
     '/javascripts/canvas.js'
 ];
 
