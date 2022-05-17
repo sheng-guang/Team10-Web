@@ -2,7 +2,6 @@ let name = null;
 let roomNo = null;
 let imgID=null;
 let socket=io();
-const service_url = 'https://kgsearch.googleapis.com/v1/entities:search';
 const apiKey= 'AIzaSyAG7w627q-djB4gTTahssufwNOImRqdYKM';
 
 
@@ -169,7 +168,7 @@ function writeOnHistory(text,dont_store) {
     history.scrollTop = history.scrollHeight;
     document.getElementById('chat_input').value = '';
 }
-//back to the homepage
+/**back to the homepage */
 function back()
 {
     window.location.href="/"

@@ -1,9 +1,11 @@
 # Team10-Web
 
+http://localhost:3000/
+
 Division of work
 
-Ziyi Ouyang: socket.io, nodeJS server, the chat/annotation interface
+Ziyi Ouyang(PsychoMaple): socket.io, nodeJS server, the chat/annotation interface
 
-Yanan Zhao: service worker, MongoDB
+Yanan Zhao(Sconeee): service worker, MongoDB
 
-Yixiang Wang: IndexedDb, Axios communication, Swagger documentation
+Yixiang Wang(sheng-guang): IndexedDb, Axios communication, Swagger documentation
