@@ -16,7 +16,7 @@ function init() {
     document.getElementById('initial_form').style.display = 'block';
 
     //@todo here is where you should initialise the socket.io operations as described in teh lectures (room joining, chat message receipt etc.)
-    socket.on('joined room', function (room, userId){
+    socket.on('joined', function (room, userId){
 
         if (userId == name){
             hideLoginInterface(room, userId);
