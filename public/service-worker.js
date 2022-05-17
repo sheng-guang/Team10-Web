@@ -3,6 +3,7 @@
  *
  * @author  Yanan Zhao
  */
+
 let cache= null;
 let dataCacheName = 'storyData-v1';
 let cacheName = 'storyPWA-step-8-1';
@@ -11,7 +12,6 @@ let filesToCache = [
     '/new',
     '/room',
     '/123',
-
     '/javascripts/jqury.js',
     '/javascripts/index.js',
     '/javascripts/DataBase.js',
@@ -24,7 +24,6 @@ let filesToCache = [
     '/javascripts/socket.io.js',
     '/socket.io/socket.io.js',
     '/javascripts/socket-io.js',
-
     '/stylesheets/css1.css',
     '/stylesheets/style.css',
     '/stylesheets/knowledge.css',
@@ -43,7 +42,6 @@ self.addEventListener('install', function (e) {
             cache= cacheX;
             return cache.addAll(filesToCache).then(x=>{
                 console.log("success: "+x);
-
             })
                 .catch(x=>{
                     console.error(x);
@@ -73,6 +71,7 @@ self.addEventListener('activate', function (e) {
 /**
  * this is called every time a file is fetched. This is a middleware, i.e. this method is
  * called every time a page is fetched by the browser
+ * Strategy: cache then network
  */
 self.addEventListener('fetch', function (e) {
 
