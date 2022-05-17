@@ -1,3 +1,8 @@
+/**
+ * Complete the connection and communication with MongoDB
+ * acp21zo-Ziyi Ouyang
+ */
+
 var express = require('express');
 var router = express.Router();
 

@@ -1,3 +1,8 @@
+/** socket.io
+ * socket.io's main function is to implement communication
+ *acp21z0-Ziyi Ouyang
+ */
+
 exports.init = function(io) {
   io.sockets.on('connection', function (socket) {
     try {
