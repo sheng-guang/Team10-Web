@@ -13,11 +13,13 @@ const DB_Name= 'db_Secrets';
 function ensure_Collection(db,to){
     console.log(to);
     if (db.objectStoreNames.contains(to))return;
+    let isS=("stories"==to);
     let Store = db.createObjectStore(to, {
         keyPath: 'Id',
-        autoIncrement: true
+        autoIncrement: true,
+        unique:true
     });
-
+    Store.createIndex("key","key",{ unique:false})
 }
 var toCreat={}
 function upgrade(db,oldVersion, newVersion){
@@ -85,12 +87,13 @@ window.GetOneStory=async function(i){
 
 window.RoomStore=async  function RoomStore(key,v){
 console.log("store   "+key+"    "+v);
-    await initDatabase(key);
+    await initDatabase("room");
+    v.key=key;
     if(!db)return;
     try{
-        let tx = await db.transaction(key, 'readwrite');
-        let store = await tx.objectStore(key);
-        await store.put(v);
+        let tx = await db.transaction("room", 'readwrite');
+        let store = await tx.objectStore("room");
+        await store.add(v);
         await  tx.complete;
         // console.log('added item to the store! '+ JSON.stringify(to));
     } catch(error) {
@@ -98,13 +101,16 @@ console.log("store   "+key+"    "+v);
     }
 }
 window.RoomGet=async function RoomGet(key){
-    await initDatabase(key);
+    await initDatabase("room");
     if(!db)return;
     try{
-        let tx = await db.transaction(key, 'readonly');
-        let store = await tx.objectStore(key);
-        return await store.getAll();
+        let tx = await db.transaction("room", 'readonly');
+        let store = await tx.objectStore("room");
+        let index=await  store.index("key")
+        let re= await index.getAll(IDBKeyRange.only(key));
+        return re;
+
     } catch(error) {
-        console.log('error: I could not store the element. Reason: '+error);
+        console.log('error: I could not get the element. Reason: '+error);
     }
 }
