@@ -33,8 +33,9 @@ function init() {
         writeOnHistory('<b>' + people + ':</b> ' + chatText);
         }
     });
-    socket.on('knowledge graph', function(name, id, description, url){
-        showgraph(name,id,description,url).then(r=>{})
+    socket.on('knowledge graph', function(room,n,title, id, description, url){
+        if(name==n)return;
+        showgraph(title,id,description,url)
     });
 
 
@@ -93,14 +94,14 @@ function widgetInit(){
 
 function selectItem(event) {
     let row = event.row;
-    document.getElementById('resultId').innerText= 'id: '+row.id;
-    document.getElementById('resultName').innerText= row.name;
-    document.getElementById('resultDescription').innerText= row.rc;
-    document.getElementById("resultUrl").href= row.qc;
-    document.getElementById('show_graph').style.display= 'block';
-    document.getElementById('roomNo').value=roomNo;
+    // document.getElementById('resultId').innerText= 'id: '+row.id;
+    // document.getElementById('resultName').innerText= row.name;
+    // document.getElementById('resultDescription').innerText= row.rc;
+    // document.getElementById("resultUrl").href= row.qc;
+    // document.getElementById('show_graph').style.display= 'block';
+    // document.getElementById('roomNo').value=roomNo;
     showgraph(row.name, row.id, row.rc, row.qc);
-    socket.emit('knowledge graph', roomNo, row.name, row.id, row.rc, row.qc);
+    socket.emit('knowledge graph', roomNo,name, row.name, row.id, row.rc, row.qc);
 }
 
 

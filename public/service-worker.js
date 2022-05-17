@@ -24,7 +24,7 @@ let filesToCache = [
     '/javascripts/socket.io.js',
     '/socket.io/socket.io.js',
     '/javascripts/socket-io.js',
-
+   
     '/stylesheets/css1.css',
     '/stylesheets/style.css',
     '/stylesheets/knowledge.css',
