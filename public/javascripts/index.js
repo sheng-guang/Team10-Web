@@ -1,7 +1,7 @@
 let name = null;
 let roomNo = null;
 let imgID=null;
-let socket=io();
+let socket=null;
 const service_url = 'https://kgsearch.googleapis.com/v1/entities:search';
 const apiKey= 'AIzaSyAG7w627q-djB4gTTahssufwNOImRqdYKM';
 
