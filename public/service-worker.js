@@ -7,8 +7,7 @@ let cache= null;
 let dataCacheName = 'storyData-v1';
 let cacheName = 'storyPWA-step-8-1';
 let filesToCache = [
-    '/',
-    //'/socket.io/socket-io.js',
+
     '/stylesheets/style.css',
     '/stylesheets/knowledge.css',
     '/javascripts/jqury.js',
@@ -19,7 +18,10 @@ let filesToCache = [
     '/javascripts/canvas.js',
     '/javascripts/axios.js',
     '/javascripts/SendStory.js',
-    '/javascripts/SyncDB.js'
+
+    '/javascripts/SyncDB.js',
+    '/socket.io/socket.io.js',
+    '/javascripts/socket-io.js',
 ];
 
 /**
