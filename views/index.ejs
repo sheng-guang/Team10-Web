@@ -52,15 +52,15 @@
         var sortName='author ^';
         var authorColomName='author ^';
         var dateColomName='date';
-        var sortFunc=function (a,b){return  a.author>b.author?-1:1;}
+        var sortFunc=function (a,b){return  a.Author>b.Author?-1:1;}
         function sortAuthor(){
             if(sortName=='author v'){
                 sortName='author ^'
-                sortFunc=function (a,b){return  a.author>b.author?-1:1;}
+                sortFunc=function (a,b){return  a.Author>b.Author?-1:1;}
             }
             else {
                 sortName='author v'
-                sortFunc=function (a,b){return a.author<b.author?-1:1;}
+                sortFunc=function (a,b){return a.Author<b.Author?-1:1;}
             }
             authorColomName=sortName;
             dateColomName='date  ';
@@ -70,11 +70,11 @@
 
             if(sortName=='date v'){
                 sortName='date ^'
-                sortFunc=function (a,b){return  a.t>b.t?-1:1;}
+                sortFunc=function (a,b){return  a.Timestamp>b.Timestamp?-1:1;}
             }
             else {
                 sortName='date v'
-                sortFunc=function (a,b){return a.t<b.t?-1:1;}
+                sortFunc=function (a,b){return a.Timestamp<b.Timestamp?-1:1;}
             }
             authorColomName='author'
             dateColomName=sortName;

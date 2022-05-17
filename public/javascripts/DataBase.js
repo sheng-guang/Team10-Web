@@ -83,30 +83,27 @@ window.GetOneStory=async function(i){
     }
 }
 
-window.RoomStore=async  function RoomStore(username,room,kind,v){
-    let key=username+"|"+room+"|"+kind;
+window.RoomStore=async  function RoomStore(key,v){
+console.log("store   "+key+"    "+v);
     await initDatabase(key);
     if(!db)return;
-    let to=v;
     try{
         let tx = await db.transaction(key, 'readwrite');
         let store = await tx.objectStore(key);
-        await store.put(to);
+        await store.put(v);
         await  tx.complete;
         // console.log('added item to the store! '+ JSON.stringify(to));
     } catch(error) {
         console.log('error: I could not store the element. Reason: '+error);
     }
 }
-window.RoomGet=async function RoomGet(username,room,kind){
-    let key=username+"|"+room+"|"+kind;
+window.RoomGet=async function RoomGet(key){
     await initDatabase(key);
     if(!db)return;
     try{
         let tx = await db.transaction(key, 'readonly');
         let store = await tx.objectStore(key);
-        let all=  store.getAll();
-        return all;
+        return await store.getAll();
     } catch(error) {
         console.log('error: I could not store the element. Reason: '+error);
     }

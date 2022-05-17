@@ -1,5 +1,6 @@
 let name = null;
 let roomNo = null;
+let imgID=null;
 let socket=io();
 const service_url = 'https://kgsearch.googleapis.com/v1/entities:search';
 const apiKey= 'AIzaSyAG7w627q-djB4gTTahssufwNOImRqdYKM';
@@ -26,9 +27,11 @@ function init() {
     });
 
     socket.on('chat', function (room, userId, chatText){
+        console.log("getChatTXT()");
         let people = userId
         if (userId == name) {
-        writeOnHistory('<p>' + people + ':</p> ' + chatText);}
+        writeOnHistory('<p>' + people + ':</p> ' + chatText);
+        }
     });
     socket.on('knowledge graph', function(name, id, description, url){
         showgraph(name,id,description,url).then(r=>{})
@@ -49,7 +52,7 @@ function showgraph(title, Id, description, url,dont_store){
     if(!dont_store) {
         var to={title:title,id:Id,description:description,url:url}
         console.log(to);
-        RoomStore(name,roomNo,"graph",to);
+        RoomStore(graphKey(),to);
     }
     let pos = document.getElementById('show_graph');
     let graph = document.createElement('div');
@@ -113,15 +116,15 @@ function sendChatText() {
 
 
     // @todo send the chat message
-
+    console.log("sendChatText()");
     socket.emit('chat', roomNo, name, chatText);
 }
 
 function connectToRoom() {
     roomNo = document.getElementById('roomNo').value;
     name = document.getElementById('name').value;
-    let imageUrl= document.getElementById('image_url').innerHTML;
-    imageUrl=localStorage.getItem(imageUrl);
+    imgID= document.getElementById('image_url').innerHTML;
+    let imageUrl=localStorage.getItem(imgID);
     if (!name) name = 'Unknown-' + Math.random();
     //@todo join the room
     socket.emit('create or join',roomNo,name);
@@ -130,8 +133,11 @@ function connectToRoom() {
     loadHistory()
     loadGraph()
 }
+function graphKey(){
+    return name+"|"+roomNo+"|"+imgID+"|"+"graph";
+}
 function  loadGraph(){
-    RoomGet(name,roomNo,"graph").then(x=>{
+    RoomGet(graphKey()).then(x=>{
         x.forEach(xx=>{
             console.log(xx);
             showgraph(xx.title,xx.id,xx.description,xx.url,true);
@@ -139,15 +145,22 @@ function  loadGraph(){
     })
 }
 function loadHistory(){
-    RoomGet(name,roomNo,"t").then(x=>{
+    RoomGet(Tkey()).then(x=>{
         x.forEach(xx=>{
             writeOnHistory(xx.text,true);
         })
     })
 }
-
+function  Tkey(){
+    return name+"|"+roomNo+"|"+imgID+"|"+"t";
+}
 function writeOnHistory(text,dont_store) {
-    if(!dont_store)RoomStore(name,roomNo,"t",{text:text});
+    console.log("writeOnHistory");
+    if(!dont_store)
+    {
+        console.log("sotre talk"+ text);
+        RoomStore(Tkey(),{text:text});
+    }
     let history = document.getElementById('history');
     let paragraph = document.createElement('p');
     paragraph.innerHTML = text;

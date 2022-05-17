@@ -2,7 +2,7 @@
  * this file contains the functions to control the drawing on the canvas
  */
 let color = 'red', thickness = 4;
-
+var lineKey=null;
 /**
  * it inits the image canvas to draw on. It sets up the events to respond to (click, mouse on, etc.)
  * it is also the place where the data should be sent  via socket.io
@@ -15,8 +15,9 @@ function initCanvas(sckt, imageUrl) {
     let roomNo = document.getElementById('roomNo').value;
     let userId = document.getElementById('name').value;
     let imgID= document.getElementById('image_url').innerHTML;
-    // let description=document.getElementById('description1').value;
+     lineKey=userId+"|"+roomNo+"|"+imgID+"|"+"line"
 
+    // let description=document.getElementById('description1').value;
     let flag = false,
         prevX, prevY, currX, currY = 0;
     let canvas = $('#canvas');
@@ -49,6 +50,7 @@ function initCanvas(sckt, imageUrl) {
         }
     });
 
+
     // this is code left in case you need to  provide a button clearing the canvas (it is suggested that you implement it)
     $('.canvas-clear').on('click', function (e) {
         let c_width = canvas.width();
@@ -58,11 +60,11 @@ function initCanvas(sckt, imageUrl) {
         socket.emit('knowledge graph', roomNo, name, id, description, url);
     });
     function loadDrawHis(ctx,canvas){
-        RoomGet(userId,roomNo+"|"+imgID,"line").then(x=>{
+        RoomGet(lineKey).then(x=>{
             console.log("re draw"+x.length);
             x.forEach(xx=>{
                 try {
-                    drawOnCanvas(ctx,canvas.width,canvas.height,xx.prevX,xx.prevY,xx.currX,xx.currY,xx.color,xx.thickness);
+                    drawOnCanvas(ctx,canvas.width,canvas.height,xx.prevX,xx.prevY,xx.currX,xx.currY,xx.color,xx.thickness,true);
 
                 }
                 catch (e){
@@ -76,9 +78,7 @@ function initCanvas(sckt, imageUrl) {
     // @todo here you want to capture the event on the socket when someone else is drawing on their canvas (socket.on...)
     socket.on('draw',function(Room, from, width,height ,prevX, prevY, currX, currY,color, thickness) {
 
-        params={Room:Room,from:from,width:width,height:height,
-            prevX:prevX,prevY:prevY,currX:currX,currY:currY,color:color,thickness:thickness};
-        RoomStore(userId,roomNo+"|"+imgID,"line",params);
+
 
         drawOnCanvas(ctx, canvas.width, canvas.height, prevX, prevY, currX, currY, color, thickness);
     });
@@ -153,7 +153,15 @@ function drawImageScaled(img, canvas, ctx) {
  * @param color of the line
  * @param thickness of the line
  */
-function drawOnCanvas(ctx, canvasWidth, canvasHeight, prevX, prevY, currX, currY, color, thickness) {
+function drawOnCanvas(ctx, canvasWidth, canvasHeight, prevX, prevY, currX, currY, color, thickness,dont_store) {
+
+    if(!dont_store){
+        params={prevX:prevX,prevY:prevY,currX:currX,currY:currY,color:color,thickness:thickness};
+        RoomStore(lineKey,params);
+    }
+
+
+
     //get the ration between the current canvas and the one it has been used to draw on the other comuter
     let ratioX= canvas.width/canvasWidth;
     let ratioY= canvas.height/canvasHeight;
