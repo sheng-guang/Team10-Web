@@ -30,7 +30,7 @@ function init() {
         console.log("getChatTXT()");
         let people = userId
         if (userId == name) {
-        writeOnHistory('<p>' + people + ':</p> ' + chatText);
+        writeOnHistory('<b>' + people + ':</b> ' + chatText);
         }
     });
     socket.on('knowledge graph', function(name, id, description, url){
