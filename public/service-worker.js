@@ -10,12 +10,16 @@ let filesToCache = [
     '/',
     //'/socket.io/socket-io.js',
     '/stylesheets/style.css',
+    '/stylesheets/knowledge.css',
     '/javascripts/jqury.js',
     '/javascripts/story.js',
     '/javascripts/index.js',
     '/javascripts/DataBase.js',
     '/javascripts/idb.js',
-    '/javascripts/canvas.js'
+    '/javascripts/canvas.js',
+    '/javascripts/axios.js',
+    '/javascripts/SendStory.js',
+    '/javascripts/SyncDB.js'
 ];
 
 /**
