@@ -1,3 +1,11 @@
+/**
+ *
+ * Sync local and net on load home page.
+ *
+ *
+ * @author scs21yw  Yixang Wang
+ */
+
 async function syncDB(){
     // console.log("syncDB()");
 

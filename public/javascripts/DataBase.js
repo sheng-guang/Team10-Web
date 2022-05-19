@@ -4,6 +4,14 @@
  *
  */
 
+
+/**
+ * ensure_Collection(): ensure that indexDB has the collection
+ *  store functions : store data
+ *  get function: get any kind of data
+ *
+ * @author scs21yw  Yixang Wang
+ */
 import * as idb from "./idb.js";
 
 var db;

@@ -1,3 +1,11 @@
+/**
+ *
+ * Swagger doc for web apis
+ *
+ *
+ * @author scs21yw  Yixang Wang
+ */
+
 paths={}
 const server1={
     url: 'http://localhost:3000/',

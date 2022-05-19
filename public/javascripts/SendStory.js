@@ -1,4 +1,11 @@
-
+/**
+ *
+ *  Use axios to store story to net
+ *  Store story to indexDB
+ *
+ *
+ * @author scs21yw  Yixang Wang
+ */
 function  getDate(){
     let d=new Date();
     var re=d.getFullYear()+"-"+d.getMonth()+"-"+d.getDay();
