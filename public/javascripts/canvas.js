@@ -162,8 +162,6 @@ function drawOnCanvas(ctx, canvasWidth, canvasHeight, prevX, prevY, currX, currY
         RoomStore(lineKey,params);
     }
 
-
-
     //get the ration between the current canvas and the one it has been used to draw on the other comuter
     let ratioX= canvas.width/canvasWidth;
     let ratioY= canvas.height/canvasHeight;

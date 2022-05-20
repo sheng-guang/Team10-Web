@@ -95,12 +95,6 @@ function widgetInit(){
 
 function selectItem(event) {
     let row = event.row;
-    // document.getElementById('resultId').innerText= 'id: '+row.id;
-    // document.getElementById('resultName').innerText= row.name;
-    // document.getElementById('resultDescription').innerText= row.rc;
-    // document.getElementById("resultUrl").href= row.qc;
-    // document.getElementById('show_graph').style.display= 'block';
-    // document.getElementById('roomNo').value=roomNo;
     showgraph(row.name, row.id, row.rc, row.qc);
     console.log(row.qc);
     socket.emit('knowledge graph', roomNo,name, row.name, row.id, [row.rc, row.qc]);
