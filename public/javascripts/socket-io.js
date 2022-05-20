@@ -1,6 +1,6 @@
 /** socket.io
  * socket.io's main function is to implement communication
- *acp21z0-Ziyi Ouyang
+ * @author acp21z0-Ziyi Ouyang
  */
 
 exports.init = function(io) {

@@ -1,5 +1,6 @@
 /**
  * this file contains the functions to control the drawing on the canvas
+ * @author acp21zo Ziyi Ouyang
  */
 let color = 'red', thickness = 4;
 var lineKey=null;
@@ -9,6 +10,7 @@ var lineKey=null;
  * @param sckt the open socket.io to register events on
  * @param imageUrl teh image url to download
  */
+
 function initCanvas(sckt, imageUrl) {
     socket = sckt;
 
